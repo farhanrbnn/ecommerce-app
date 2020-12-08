@@ -16,32 +16,11 @@
       <b-container>
         <div id="home-content">
         <h2 class="pb-3">Store at a Glance</h2>
-        <b-row class="justify-content-md-center">
-          <b-col md>
-            <b-card title="Logitech G Pro Wireless">
+        <b-row  class="justify-content-md-center">
+          <b-col v-for="(data, index) in datas" :key="index" v-if="index<=3" md>
+            <b-card :title="data.name">
               <b-card-text>
-                Rp.2.000.000
-              </b-card-text>
-            </b-card>
-          </b-col>
-          <b-col col lg="3">
-            <b-card title="Logitech G Pro Wireless">
-              <b-card-text>
-                Rp.2.000.000
-              </b-card-text>
-            </b-card>
-          </b-col>
-          <b-col md>
-            <b-card title="Logitech G Pro Wireless">
-              <b-card-text>
-                Rp.2.000.000
-              </b-card-text>
-            </b-card>
-          </b-col>
-          <b-col md>
-            <b-card title="Logitech G Pro Wireless">
-              <b-card-text>
-                Rp.2.000.000
+                {{data.price}}
               </b-card-text>
             </b-card>
           </b-col>
@@ -64,17 +43,18 @@ export default {
     return {
       pic: 'UPGRADE YOUR GAMING NEEDS',
       quote: '- every gamer needs a good gear -',
-      datas: null
+      datas: null,
+      index: 0
     }
   },
   created () {
     DataService.getAllData()
     .then((res) => {
       this.datas = res.data.data
-      console.log(res)
     })
     .catch((err) => {
-      alert('error when catching API')
+      alert('error when catching API' + err)
+      console.log(err)
     })
   }
 }
