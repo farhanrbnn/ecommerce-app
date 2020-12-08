@@ -56,13 +56,26 @@
 </template>
 
 <script>
+import DataService from '../web_service/services'
+
 export default {
   name: 'homepage',
   data () {
     return {
       pic: 'UPGRADE YOUR GAMING NEEDS',
-      quote: '- every gamer needs a good gear -'
+      quote: '- every gamer needs a good gear -',
+      datas: null
     }
+  },
+  created () {
+    DataService.getAllData()
+    .then((res) => {
+      this.datas = res.data.data
+      console.log(res)
+    })
+    .catch((err) => {
+      alert('error when catching API')
+    })
   }
 }
 </script>

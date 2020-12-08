@@ -5,11 +5,17 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app  = express();
 
+let corsOption = {
+	origin: 'http://localhost:8080'
+}
+
 // import module
 const { dbUrl } = require('./config/db');
 const getRoute = require('./route/get');
+const postRoute = require('./route/post');
 
 app.use(bodyParser.json());
+app.use(cors(corsOption));
 
 // db connection
 mongoose.connect(dbUrl, {
@@ -25,6 +31,7 @@ mongoose.connect(dbUrl, {
 
 // routing
 app.use('/', getRoute);
+app.use('/post', postRoute);
 
 app.listen(5000, ()=>{
 	console.log('server listening');
