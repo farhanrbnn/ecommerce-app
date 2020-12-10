@@ -16,10 +16,6 @@
        <input type="file" accept=".jpg, .jpeg, .png" @change="fileChange">
       <b-button class="mt-5" variant="primary" @click="postData">Submit</b-button>
     </div>
-    <div id="preview">
-      <p v-if="url">{{url}}</p>
-    <!-- <img v-if="url" :src="url" /> -->
-  </div>
   </div>
 </template>
 

@@ -14,8 +14,10 @@ const { dbUrl } = require('./config/db');
 const getRoute = require('./route/get');
 const postRoute = require('./route/post');
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 app.use(cors(corsOption));
+app.use(bodyParser.json({ limit: '1mb' }));
+app.use(bodyParser.urlencoded({ limit: '1mb', extended: true }));
 
 // db connection
 mongoose.connect(dbUrl, {

@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../model/goods');
+const app = express();
+const bodyParser = require('body-parser');
+
+router.use(bodyParser.json({ limit: '1mb' }));
+router.use(bodyParser.urlencoded({ limit: '1mb', extended: true }));
 
 router.post('/', async (req, res) => {
 	const post = new Post({
