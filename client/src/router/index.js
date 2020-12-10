@@ -4,6 +4,8 @@ import homepage from '@/components/homepage'
 import login from '@/components/login'
 import shop from '@/components/shop'
 import inputGoods from '@/components/inputGoods'
+import details from '@/components/details'
+
 
 Vue.use(Router)
 
@@ -28,6 +30,11 @@ export default new Router({
       path: '/input',
       name: 'inputGoods',
       component: inputGoods
+    },
+    {
+      path: '/shop/:userId',
+      name: 'details',
+      component: details
     }
   ]
 })

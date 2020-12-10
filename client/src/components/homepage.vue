@@ -17,14 +17,14 @@
         <div id="home-content">
         <h2 class="pb-3">Store at a Glance</h2>
         <b-row  class="justify-content-md-center">
-          <b-col v-for="(data, index) in datas" :key="index" v-if="index<=2" md>
-            <b-link id="card" to="/shop">
+          <b-col v-for="(data, index) in datas" :key="index" v-if="index<=3" md>
+            <router-link id="card" :to="{name:'details', params: {userId: data._id}}">
             <b-card :img-src="data.picture" img-alt="Image" img-top :title="data.name" style="max-width: 20rem;">
               <b-card-text>
                   {{data.price}}
               </b-card-text>
             </b-card>
-            </b-link>
+            </router-link>
           </b-col>
         </b-row>
       </div>
