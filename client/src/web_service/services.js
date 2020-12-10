@@ -7,6 +7,9 @@ class DataService {
   getAllData () {
     return request.get('/')
   }
+  getFindById(id) {
+  	return request.get(id)
+  }
 }
 
 export default new DataService()
