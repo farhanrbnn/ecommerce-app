@@ -7,7 +7,8 @@ router.post('/', async (req, res) => {
 		name: req.body.name,
 		category: req.body.category,
 		price: req.body.price,
-		quantity: req.body.quantity
+		quantity: req.body.quantity,
+		picture: req.body.picture
 	});
 
 	try {

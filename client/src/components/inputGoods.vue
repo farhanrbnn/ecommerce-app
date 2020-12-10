@@ -13,11 +13,12 @@
       <b-form-group id="input-group-4" label="Quantity" label-for="input-4">
         <b-form-input id="input-4" placeholder="Quantity" v-model="quantity"></b-form-input>
       </b-form-group>
+       <input type="file" accept=".jpg, .jpeg, .png" @change="fileChange">
       <b-button class="mt-5" variant="primary" @click="postData">Submit</b-button>
-       <!-- <input type="file" @change="fileChange"> -->
     </div>
     <div id="preview">
-    <img v-if="url" :src="url" />
+      <p v-if="url">{{url}}</p>
+    <!-- <img v-if="url" :src="url" /> -->
   </div>
   </div>
 </template>
@@ -39,32 +40,38 @@ export default {
   methods: {
     fileChange (e) {
       const file = e.target.files[0]
-      this.url = URL.createObjectURL(file)
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
+
+      reader.onload = () => {
+        this.url = reader.result
+      }
     },
     postData () {
       let data = {
         name: this.name,
         category: this.category,
         price: this.price,
-        quantity: this.quantity
+        quantity: this.quantity,
+        picture: this.url
       }
 
       DataService.create(data)
-      .then((res) => {
-        alert(res)
-        // make form empty
-        this.name = ''
-        this.category = ''
-        this.price = ''
-        this.quantity = ''
-      })
-      .catch((err) => {
-        alert(err)
-      })
-    } 
+        .then((res) => {
+          alert(res)
+          // make form empty
+          this.name = ''
+          this.category = ''
+          this.price = ''
+          this.quantity = ''
+        })
+        .catch((err) => {
+          alert('something wrong' + err)
+        })
+    }
   }
 }
-  
+
 </script>
 
 <style scoped>
@@ -72,5 +79,5 @@ export default {
   margin: 0 auto;
   width: 500px;
 }
-  
+
 </style>

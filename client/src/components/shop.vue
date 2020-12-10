@@ -28,31 +28,10 @@
        <div id="main">
          <h1>shopping page</h1>
          <b-row class="justify-content-md-center">
-          <b-col md>
-            <b-card title="Logitech G Pro Wireless">
+          <b-col v-for="(data, index) in datas" :key="index" md>
+            <b-card :title="data.name">
               <b-card-text>
-                Rp.2.000.000
-              </b-card-text>
-            </b-card>
-          </b-col>
-          <b-col md>
-            <b-card title="Logitech G Pro Wireless">
-              <b-card-text>
-                Rp.2.000.000
-              </b-card-text>
-            </b-card>
-          </b-col>
-          <b-col md>
-            <b-card title="Logitech G Pro Wireless">
-              <b-card-text>
-                Rp.2.000.000
-              </b-card-text>
-            </b-card>
-          </b-col>
-          <b-col md>
-            <b-card title="Logitech G Pro Wireless">
-              <b-card-text>
-                Rp.2.000.000
+                {{data.price}}
               </b-card-text>
             </b-card>
           </b-col>
@@ -63,8 +42,25 @@
 </template>
 
 <script>
+import DataService from '../web_service/services'
+
 export default {
-  name: 'shop'
+  name: 'shop',
+  data () {
+    return {
+      datas: null
+    }
+  },
+  created () {
+    DataService.getAllData()
+      .then((res) => {
+        this.datas = res.data.data
+        console.log(res.data.data)
+      })
+      .catch((err) => {
+        alert('error when fetching API: ' + err)
+      })
+  }
 }
 </script>
 
@@ -104,6 +100,5 @@ export default {
   margin-left: 160px; /* Same as the width of the sidebar */
   padding: 0px 10px;
 }
-
 
 </style>

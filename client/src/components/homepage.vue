@@ -17,12 +17,14 @@
         <div id="home-content">
         <h2 class="pb-3">Store at a Glance</h2>
         <b-row  class="justify-content-md-center">
-          <b-col v-for="(data, index) in datas" :key="index" v-if="index<=3" md>
-            <b-card :title="data.name">
+          <b-col v-for="(data, index) in datas" :key="index" v-if="index<=2" md>
+            <b-link id="card" to="/shop">
+            <b-card :img-src="data.picture" :title="data.name">
               <b-card-text>
-                {{data.price}}
+                  {{data.price}}
               </b-card-text>
             </b-card>
+            </b-link>
           </b-col>
         </b-row>
       </div>
@@ -49,13 +51,13 @@ export default {
   },
   created () {
     DataService.getAllData()
-    .then((res) => {
-      this.datas = res.data.data
-    })
-    .catch((err) => {
-      alert('error when catching API' + err)
-      console.log(err)
-    })
+      .then((res) => {
+        this.datas = res.data.data
+      })
+      .catch((err) => {
+        alert('error when catching API' + err)
+        console.log(err)
+      })
   }
 }
 </script>
@@ -104,5 +106,13 @@ h3 {
 
 #home-content {
   margin-top: 30px;
+}
+
+#card {
+  color: black;
+}
+
+#card-title {
+
 }
 </style>

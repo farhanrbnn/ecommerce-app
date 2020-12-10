@@ -16,6 +16,10 @@ const goodsSchema = mongoose.Schema({
 	quantity: {
 		type: Number,
 		required: true
+	},
+	picture: {
+		type: String,
+		required: true
 	}
 });
 
