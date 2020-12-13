@@ -5,14 +5,15 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app  = express();
 
+// define vue app url 
 let corsOption = {
 	origin: 'http://localhost:8080'
 }
 
 // import module
 const { dbUrl } = require('./config/db');
-const getRoute = require('./route/get');
-const postRoute = require('./route/post');
+const getRoute = require('./routes/get');
+const postRoute = require('./routes/post');
 
 app.use(cors(corsOption));
 app.use(bodyParser.json({ limit: '1mb' }));
@@ -34,6 +35,7 @@ mongoose.connect(dbUrl, {
 app.use('/', getRoute);
 app.use('/post', postRoute);
 
+// serving at port 5000
 app.listen(5000, ()=>{
 	console.log('server listening');
 })

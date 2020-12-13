@@ -9,8 +9,15 @@
       </b-navbar-nav>
       </b-collapse>
      </b-navbar>	
-     <b-container>
-     	<h3>{{datas.name}}</h3>
+     <b-container id="content" fluid>
+     	<b-row class="justify-content-md-center">
+     		<b-col cols="4">
+     			<img id="product-image" :src="datas.picture">
+     		</b-col>
+     		<b-col cols="8">
+     			<h3>{{datas.name}}</h3>
+     		</b-col>
+     	</b-row>
      </b-container>
 	</div>
 </template>
@@ -53,5 +60,15 @@ export default {
 #brand {
   font-family: 'Krona One', sans-serif;
 
+}
+
+#product-image {
+	width: 500px;
+	height: 500px;
+
+}
+
+#content {
+	margin-top: 100px;
 }
 </style>
