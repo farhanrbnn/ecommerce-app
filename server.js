@@ -15,6 +15,7 @@ const { dbUrl } = require('./config/db');
 const getRoute = require('./routes/get');
 const postRoute = require('./routes/post');
 
+
 app.use(cors(corsOption));
 app.use(bodyParser.json({ limit: '1mb' }));
 app.use(bodyParser.urlencoded({ limit: '1mb', extended: true }));

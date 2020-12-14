@@ -1,15 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../model/goods');
+var returnStatus = require('../controller/status');
+var status = new returnStatus()
 
 router.get('/', async (req,res) => {
 	try {
 		const getData = await Post.find();
 
-		res.json({
-			message: 'success',
-			data: getData
-		});
+		
+		if(getData){
+			status.success200(res, getData)
+		}
+		else {
+			status.notfound404(res)
+		}
 
 	} catch (err) {
 		res.json({
@@ -21,8 +26,14 @@ router.get('/', async (req,res) => {
 router.get('/:id', async(req, res)=>{
 	try{
 		const getData = await Post.findById(req.params.id, {_id:0});
-		res.json(getData);
 
+		if(getData){
+			status.success200(res, getData)
+		}
+		else {
+			status.notfound404(res)
+		}
+		
 	} catch (err) {
 		res.json({message:err});
 	} 
