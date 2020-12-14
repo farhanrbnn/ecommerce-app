@@ -29,11 +29,13 @@
          <h1>shopping page</h1>
          <b-row class="justify-content-md-center">
           <b-col v-for="(data, index) in datas" :key="index" md>
+          <router-link id="card" :to="{name:'details', params: {userId: data._id}}">
             <b-card :img-src="data.picture":title="data.name" style="max-width: 15rem;">
               <b-card-text>
                 {{data.price}}
               </b-card-text>
             </b-card>
+            </router-link>
           </b-col>
         </b-row>
        </div>
@@ -101,4 +103,7 @@ export default {
   padding: 0px 10px;
 }
 
+#card {
+  color: black;
+}
 </style>

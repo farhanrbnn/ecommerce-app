@@ -9,13 +9,23 @@
       </b-navbar-nav>
       </b-collapse>
      </b-navbar>	
-     <b-container id="content" fluid>
+     <b-container id="content">
      	<b-row class="justify-content-md-center">
      		<b-col cols="4">
      			<img id="product-image" :src="datas.picture">
      		</b-col>
      		<b-col cols="8">
      			<h3>{{datas.name}}</h3>
+     			<div>
+     				<b-row class="justify-content-md-left">
+     					<h4 id="label" class="mr-3">price</h4>
+     					<h4>{{datas.price}}</h4>
+     				</b-row>
+     				<b-row class="justify-content-md-left">
+     					<h4 id="label" class="mr-3">price</h4>
+     					<h4>{{datas.price}}</h4>
+     				</b-row>
+     			</div>
      		</b-col>
      	</b-row>
      </b-container>
@@ -37,8 +47,8 @@ export default {
 	created () {
 		DataService.getFindById(this.url)
 		  .then((res) => {
-		  	this.datas = res.data
-		  	console.log(res.data)
+		  	this.datas = res.data.data
+		  	console.log(res.data.data)
 		  })
 		  .catch ((err) => {
 		  	console.log('error when fetching API' + err)
@@ -63,12 +73,16 @@ export default {
 }
 
 #product-image {
-	width: 500px;
-	height: 500px;
+	width: 300px;
+	height: 300px;
 
 }
 
 #content {
 	margin-top: 100px;
+}
+
+#label {
+	color: #bbbfca;
 }
 </style>
