@@ -19,7 +19,7 @@
      			<div>
      				<b-row class="justify-content-md-left">
      					<h4 id="label" class="mr-3">price</h4>
-     					<h4>{{datas.price}}</h4>
+     					<h4>Rp.{{datas.price}}</h4>
      				</b-row>
      				<b-row class="justify-content-md-left">
      					<h4 id="label" class="mr-3">price</h4>

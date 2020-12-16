@@ -7,8 +7,7 @@ var status = new returnStatus()
 router.get('/', async (req,res) => {
 	try {
 		const getData = await Post.find();
-
-		
+	
 		if(getData){
 			status.success200(res, getData)
 		}

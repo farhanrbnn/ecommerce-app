@@ -38,7 +38,19 @@
             </router-link>
           </b-col>
         </b-row>
+        <b-row class="justify-content-md-center">
+          <b-col v-for="(data, index) in datas" :key="index" md>
+          <router-link id="card" :to="{name:'details', params: {userId: data._id}}">
+            <b-card :img-src="data.picture":title="data.name" style="max-width: 15rem;">
+              <b-card-text>
+                {{data.price}}
+              </b-card-text>
+            </b-card>
+            </router-link>
+          </b-col>
+        </b-row>
        </div>
+      <p v-if="datas">{{test}}</p>
      </b-container>
   </div>
 </template>
@@ -50,18 +62,29 @@ export default {
   name: 'shop',
   data () {
     return {
-      datas: null
+      datas: null,
     }
   },
   created () {
     DataService.getAllData()
       .then((res) => {
         this.datas = res.data.data
-        console.log(res.data.data)
       })
       .catch((err) => {
         alert('error when fetching API: ' + err)
       })
+  },
+  computed: {
+    test () {
+      let data = this.datas 
+      let idx = []
+      
+      data.forEach((val, index)=>{
+        idx.push(index)
+        
+      })
+      return idx
+    }
   }
 }
 </script>
