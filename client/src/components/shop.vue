@@ -27,19 +27,8 @@
        </div>
        <div id="main">
          <h1>shopping page</h1>
-         <b-row class="justify-content-md-center">
-          <b-col v-for="(data, index) in datas" :key="index" md>
-          <router-link id="card" :to="{name:'details', params: {userId: data._id}}">
-            <b-card :img-src="data.picture":title="data.name" style="max-width: 15rem;">
-              <b-card-text>
-                {{data.price}}
-              </b-card-text>
-            </b-card>
-            </router-link>
-          </b-col>
-        </b-row>
-        <b-row class="justify-content-md-center">
-          <b-col v-for="(data, index) in datas" :key="index" md>
+        <b-row  v-for="arr in chunk" class="justify-content-md-center">
+          <b-col v-for="data in arr" :key="index" md>
           <router-link id="card" :to="{name:'details', params: {userId: data._id}}">
             <b-card :img-src="data.picture":title="data.name" style="max-width: 15rem;">
               <b-card-text>
@@ -50,7 +39,6 @@
           </b-col>
         </b-row>
        </div>
-      <p v-if="datas">{{test}}</p>
      </b-container>
   </div>
 </template>
@@ -75,15 +63,26 @@ export default {
       })
   },
   computed: {
-    test () {
-      let data = this.datas 
-      let idx = []
-      
-      data.forEach((val, index)=>{
-        idx.push(index)
-        
-      })
-      return idx
+    chunk () {
+      let chunked_arr = []
+      let array = this.datas 
+
+      if (array) {
+        for (let i = 0; i < array.length; i++) {
+
+          let  last = chunked_arr[chunked_arr.length - 1]
+
+          if (!last || last.length === 4) {
+            chunked_arr.push([array[i]])
+
+            } else {
+              last.push(array[i])
+
+            }
+        }
+
+      }
+    return chunked_arr;
     }
   }
 }
