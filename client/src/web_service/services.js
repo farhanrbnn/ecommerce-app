@@ -7,8 +7,8 @@ class DataService {
   getAllData () {
     return request.get('/')
   }
-  getFindById(id) {
-  	return request.get(id)
+  getFindById (id) {
+    return request.get(id)
   }
 }
 

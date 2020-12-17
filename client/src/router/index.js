@@ -6,7 +6,6 @@ import shop from '@/components/shop'
 import inputGoods from '@/components/inputGoods'
 import details from '@/components/details'
 
-
 Vue.use(Router)
 
 export default new Router({

@@ -1,12 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const Post = require('../model/goods');
-const app = express();
-const bodyParser = require('body-parser');
+const express = require('express')
+const router = express.Router()
+const bcrypt = require('bcrypt');
+const Post = require('../model/goods')
+const User = require('../model/user')
+const app = express()
+const bodyParser = require('body-parser')
 
-router.use(bodyParser.json({ limit: '1mb' }));
-router.use(bodyParser.urlencoded({ limit: '1mb', extended: true }));
+router.use(bodyParser.json({ limit: '1mb' }))
+router.use(bodyParser.urlencoded({ limit: '1mb', extended: true }))
 
+// ITEM POST REQUEST
 router.post('/', async (req, res) => {
 	const post = new Post({
 		name: req.body.name,
@@ -14,15 +17,36 @@ router.post('/', async (req, res) => {
 		price: req.body.price,
 		quantity: req.body.quantity,
 		picture: req.body.picture
-	});
+	})
 
 	try {
-		const savedPost = await post.save();
-		res.json(savedPost);
+		const savedPost = await post.save()
+		res.json(savedPost)
 
 	} catch (err) {
-		res.json({message:err});
+		res.json({message:err})
 	}
-});
+})
 
-module.exports = router;
+// USER POST REQUEST
+
+router.post('/register', async (req, res) => {
+	let user = new User({
+		email: req.body.email,
+		password: req.body.password
+	})
+
+	try {
+		let encrypted = await bcrypt.genSalt(10)
+		user.password = await bcrypt.hash(user.password, encrypted)
+		
+		const savedPost = await user.save()
+		res.json(savedPost)
+	} catch (err) {
+		res.json({
+			message: err
+		})
+	}
+})
+
+module.exports = router
