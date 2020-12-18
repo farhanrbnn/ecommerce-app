@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const goodsSchema = mongoose.Schema({
 	name: {
@@ -21,6 +21,6 @@ const goodsSchema = mongoose.Schema({
 		type: String,
 		required: true
 	}
-});
+})
 
-module.exports = mongoose.model('Post', goodsSchema);
+module.exports = mongoose.model('Post', goodsSchema)

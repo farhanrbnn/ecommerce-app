@@ -32,6 +32,8 @@ router.post('/', async (req, res) => {
 
 router.post('/register', async (req, res) => {
 	let user = new User({
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
 		email: req.body.email,
 		password: req.body.password
 	})

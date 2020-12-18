@@ -35,7 +35,7 @@
                 {{data.price}}
               </b-card-text>
             </b-card>
-            </router-link>
+            </router-link>  
           </b-col>
         </b-row>
        </div>
