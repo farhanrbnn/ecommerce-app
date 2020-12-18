@@ -5,6 +5,8 @@ import login from '@/components/login'
 import shop from '@/components/shop'
 import inputGoods from '@/components/inputGoods'
 import details from '@/components/details'
+import register from '@/components/register'
+
 
 Vue.use(Router)
 
@@ -35,6 +37,11 @@ export default new Router({
       name: 'details',
       component: details,
       props: true
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: register
     }
   ]
 })
