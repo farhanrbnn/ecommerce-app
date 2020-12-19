@@ -5,6 +5,8 @@ const Post = require('../model/goods')
 const User = require('../model/user')
 const app = express()
 const bodyParser = require('body-parser')
+var returnStatus = require('../controller/status')
+var status = new returnStatus()
 
 router.use(bodyParser.json({ limit: '1mb' }))
 router.use(bodyParser.urlencoded({ limit: '1mb', extended: true }))
@@ -39,15 +41,20 @@ router.post('/register', async (req, res) => {
 	})
 
 	try {
-		let encrypted = await bcrypt.genSalt(10)
-		user.password = await bcrypt.hash(user.password, encrypted)
+		let validate = await User.findOne({email:req.body.email})
+
+		if(validate) {
+			return status.badrequest400(res, 'user already exist')
+
+		} else {
+			let encrypted = await bcrypt.genSalt(10)
+			user.password = await bcrypt.hash(user.password, encrypted)
 		
-		const savedPost = await user.save()
-		res.json(savedPost)
+			const savedPost = await user.save()
+			res.json(savedPost)
+		}
 	} catch (err) {
-		res.json({
-			message: err
-		})
+		res.json({message: err})
 	}
 })
 

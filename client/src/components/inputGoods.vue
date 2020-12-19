@@ -52,7 +52,7 @@ export default {
         picture: this.url
       }
 
-      DataService.create(data)
+      DataService.create('/post', data)
         .then((res) => {
           alert(res)
           // make form empty

@@ -8,6 +8,7 @@
       <b-form-group id="input-group-2" label="Password" label-for="input-2">
         <b-form-input id="input-2" placeholder="Enter Your Password" v-model="password"></b-form-input>
       </b-form-group>
+      <p>doesnt have an account ? register <span><router-link to="/register">here</router-link></span></p>
        <b-button class="mt-3" variant="primary">Submit</b-button>
     </div>
   </div>
@@ -15,7 +16,13 @@
 
 <script>
 export default {
-  name: 'login'
+  name: 'login',
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  }
 }
 </script>
 

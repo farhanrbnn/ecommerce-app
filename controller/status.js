@@ -9,10 +9,27 @@ class returnStatus {
 
     notfound404(res) {
     	res.json({
-    		'status':'200',
-    		'messages':'Not Found',
+    		'status':'404',
+    		'err':'Not Found',
     		'data': {}
     	})
+    }
+
+    badrequest400(res,msg) {
+        res.json({
+            'status':'400',
+            'message':msg,
+            'data':{}
+        })
+
+    }
+
+    servererror500(res, err) {
+        res.json({
+            'status':'500',
+            'error': err,
+            'data': {}
+        })
     }
 
 }

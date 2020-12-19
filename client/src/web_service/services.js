@@ -1,8 +1,8 @@
 import request from '../service'
 
 class DataService {
-  create (data) {
-    return request.post('/post', data)
+  create (route, data) {
+    return request.post(route, data)
   }
   getAllData () {
     return request.get('/')
