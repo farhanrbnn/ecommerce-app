@@ -14,7 +14,7 @@ let corsOption = {
 const { dbUrl } = require('./config/db')
 const getRoute = require('./routes/get')
 const postRoute = require('./routes/post')
-
+const authRoute = require('./routes/auth')
 
 app.use(cors(corsOption))
 app.use(bodyParser.json({ limit: '1mb' }))
@@ -35,6 +35,8 @@ mongoose.connect(dbUrl, {
 // routing
 app.use('/', getRoute)
 app.use('/post', postRoute)
+app.use('/user', authRoute)
+
 
 // serving at port 5000
 app.listen(5000, ()=>{
