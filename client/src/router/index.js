@@ -7,7 +7,6 @@ import inputGoods from '@/components/inputGoods'
 import details from '@/components/details'
 import register from '@/components/register'
 
-
 Vue.use(Router)
 
 export default new Router({

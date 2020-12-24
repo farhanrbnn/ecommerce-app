@@ -26,20 +26,19 @@ export default {
     }
   },
   methods: {
-    postData() {
+    postData () {
       let data = {
         email: this.email,
         password: this.password
       }
 
       DataService.create('/user/auth', data)
-      .then((res) => {
-        alert(res.data.message)
-      })
-      .catch((err) => {
-        alert(err)
-      })
-   
+        .then((res) => {
+          alert(res.data.message)
+        })
+        .catch((err) => {
+          alert(err)
+        })
     }
   }
 }

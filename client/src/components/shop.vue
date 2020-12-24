@@ -14,21 +14,22 @@
      <b-container>
        <div id="sidenav">
         <h4>Category</h4>
-         <b-form-checkbox v-for="data in categoryList" :key="data" >
-          {{data}} 
-          </b-form-checkbox>
+        <b-form-select v-model="selected">
+         <b-form-select-option v-for="data in categoryList">{{ data }}</b-form-select-option>
+        </b-form-select>  
+       <b-button class="mt-3" variant="primary" >Select</b-button>
        </div>
        <div id="main">
          <h1>shopping page</h1>
-        <b-row  v-for="arr in chunk" class="mb-5 justify-content-md-center">
-          <b-col v-for="data in arr"  md>
+        <b-row  v-for="arr in chunk" :key="arr" class="mb-5 justify-content-md-center">
+          <b-col v-for="data in arr" :key="data" md>
           <router-link id="card" :to="{name:'details', params: {userId: data._id}}">
             <b-card :img-src="data.picture" :title="data.name" style="max-width: 15rem;">
               <b-card-text>
                 {{data.price}}
               </b-card-text>
             </b-card>
-            </router-link>  
+            </router-link>
           </b-col>
         </b-row>
        </div>
@@ -44,7 +45,8 @@ export default {
   data () {
     return {
       datas: null,
-      category: null
+      category: null,
+      selected: []
     }
   },
   created () {
@@ -53,14 +55,12 @@ export default {
         let apiData = res.data.data
         let categoryArr = []
 
-        for(let i=0; i < apiData.length; i++) {
+        for (let i = 0; i < apiData.length; i++) {
           categoryArr.push(apiData[i].category)
           categoryArr.sort()
         }
-        
         this.datas = apiData
         this.category = categoryArr
-
       })
       .catch((err) => {
         alert('error when fetching API: ' + err)
@@ -86,21 +86,20 @@ export default {
     },
     categoryList () {
       let array = this.category
-      let b = []
+      let categoryArr = ["All"]
 
-      if(array) {
-        for(let i = 0; i < array.length; i++) {
-          let j = i + 1 
+      if (array) {
+        for (let i = 0; i < array.length; i++) {
+          let j = i + 1
 
           if (j <= array.length) {
-            if (array[i] != array[j]) {
-              b.push(array[i])
+            if (array[i] !== array[j]) {
+              categoryArr.push(array[i])
             }
           }
         }
       }
-      return b
-
+      return categoryArr
     }
   }
 }
@@ -127,7 +126,8 @@ export default {
   z-index: 1;
   top: 100px;
   left: 350px;
-  background-color: #E6E6E6;
+  /*background-color: #E6E6E6;*/
+  background-color: white;
   /*overflow-x: hidden; */
   padding-top: 40px;
   border-radius: 10px;
