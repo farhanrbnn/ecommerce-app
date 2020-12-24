@@ -14,15 +14,8 @@
      <b-container>
        <div id="sidenav">
         <h4>Category</h4>
-         <b-form-checkbox
-          id="checkbox-1"
-          name="checkbox-1">
-           Headset
-          </b-form-checkbox>
-          <b-form-checkbox
-          id="checkbox-2"
-          name="checkbox-2">
-           Gaming Keyboard
+         <b-form-checkbox v-for="data in categoryList" :key="data" >
+          {{data}} 
           </b-form-checkbox>
        </div>
        <div id="main">
@@ -50,13 +43,24 @@ export default {
   name: 'shop',
   data () {
     return {
-      datas: null
+      datas: null,
+      category: null
     }
   },
   created () {
     DataService.getAllData()
       .then((res) => {
-        this.datas = res.data.data
+        let apiData = res.data.data
+        let categoryArr = []
+
+        for(let i=0; i < apiData.length; i++) {
+          categoryArr.push(apiData[i].category)
+          categoryArr.sort()
+        }
+        
+        this.datas = apiData
+        this.category = categoryArr
+
       })
       .catch((err) => {
         alert('error when fetching API: ' + err)
@@ -79,6 +83,24 @@ export default {
         }
       }
       return chunkedArr
+    },
+    categoryList () {
+      let array = this.category
+      let b = []
+
+      if(array) {
+        for(let i = 0; i < array.length; i++) {
+          let j = i + 1 
+
+          if (j <= array.length) {
+            if (array[i] != array[j]) {
+              b.push(array[i])
+            }
+          }
+        }
+      }
+      return b
+
     }
   }
 }

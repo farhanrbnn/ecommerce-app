@@ -5,6 +5,7 @@ const Post = require('../model/goods')
 const User = require('../model/user')
 const app = express()
 const bodyParser = require('body-parser')
+const Joi = require('@hapi/joi')
 var returnStatus = require('../controller/status')
 var status = new returnStatus()
 
@@ -51,7 +52,7 @@ router.post('/register', async (req, res) => {
 			user.password = await bcrypt.hash(user.password, encrypted)
 		
 			const savedPost = await user.save()
-			res.json(savedPost)
+			return status.success200(res, savedPost)
 		}
 	} catch (err) {
 		res.json({message: err})

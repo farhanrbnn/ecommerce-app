@@ -43,7 +43,7 @@ export default {
 
 			DataService.create('/post/register', data)
 			.then((res) => {
-				alert('success')
+				alert('register success')
 				this.firstName = ''
 				this.lastName = ''
 				this.email = ''
