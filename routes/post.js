@@ -13,6 +13,7 @@ router.use(bodyParser.json({ limit: '1mb' }))
 router.use(bodyParser.urlencoded({ limit: '1mb', extended: true }))
 
 // ITEM POST REQUEST
+// save items to database
 router.post('/', async (req, res) => {
 	const post = new Post({
 		name: req.body.name,
@@ -28,6 +29,21 @@ router.post('/', async (req, res) => {
 
 	} catch (err) {
 		res.json({message:err})
+	}
+})
+
+router.post('/items', async (req, res) => {
+	let category = await Post.find({category: req.body.category})
+
+	try {
+		if (category) {
+			return status.success200(res, category)
+
+		} else {
+			return status.badrequest404(res, 'not found')
+		}
+	} catch (err) {
+		return status.notfound404(res, 'something went wrong')
 	}
 })
 

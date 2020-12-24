@@ -15,14 +15,14 @@
        <div id="sidenav">
         <h4>Category</h4>
         <b-form-select v-model="selected">
-         <b-form-select-option v-for="data in categoryList">{{ data }}</b-form-select-option>
+         <b-form-select-option :value="cat" v-for="(cat, index) in categoryList" :key="index">{{ cat }}</b-form-select-option>
         </b-form-select>  
-       <b-button class="mt-3" variant="primary" >Select</b-button>
+       <b-button class="mt-3" variant="primary" @click="select">Submit</b-button>
        </div>
        <div id="main">
          <h1>shopping page</h1>
-        <b-row  v-for="arr in chunk" :key="arr" class="mb-5 justify-content-md-center">
-          <b-col v-for="data in arr" :key="data" md>
+        <b-row  v-for="(arr, index) in chunk" :key="index" class="mb-5 justify-content-md-center">
+          <b-col v-for="(data, index) in arr" :key="index" md>
           <router-link id="card" :to="{name:'details', params: {userId: data._id}}">
             <b-card :img-src="data.picture" :title="data.name" style="max-width: 15rem;">
               <b-card-text>
@@ -46,7 +46,7 @@ export default {
     return {
       datas: null,
       category: null,
-      selected: []
+      selected: null
     }
   },
   created () {
@@ -65,6 +65,31 @@ export default {
       .catch((err) => {
         alert('error when fetching API: ' + err)
       })
+  },
+  methods: {
+    select () {
+      let postCat = {
+        category: this.selected
+      }
+
+      if(this.selected === 'All') {
+        DataService.getAllData()
+        .then((res) => {
+          this.datas = res.data.data
+        })
+        .catch((err) => {
+          alert('error when fetching API: ' + err)
+        })
+      }
+
+      DataService.create('/post/items', postCat)
+      .then((res) => {
+        this.datas = res.data.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
   },
   computed: {
     chunk () {
