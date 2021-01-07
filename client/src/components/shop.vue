@@ -17,7 +17,7 @@
         <b-form-select v-model="selected">
          <b-form-select-option :value="cat" v-for="(cat, index) in categoryList" :key="index">{{ cat }}</b-form-select-option>
         </b-form-select>  
-       <b-button class="mt-3" variant="primary" @click="select">Submit</b-button>
+       <b-button class="mt-3" variant="primary" @click="select">Select</b-button>
        </div>
        <div id="main">
          <h1>shopping page</h1>

@@ -25,13 +25,14 @@ router.post('/', async (req, res) => {
 
 	try {
 		const savedPost = await post.save()
-		res.json(savedPost)
+		return status.success200(res, savedPost)
 
 	} catch (err) {
-		res.json({message:err})
+		return status.servererror500(res, err)
 	}
 })
 
+// POST ITEMS BY CATEGORY
 router.post('/items', async (req, res) => {
 	let category = await Post.find({category: req.body.category})
 
@@ -43,11 +44,11 @@ router.post('/items', async (req, res) => {
 			return status.badrequest404(res, 'not found')
 		}
 	} catch (err) {
-		return status.notfound404(res, 'something went wrong')
+		return status.servererror500(res, err)
 	}
 })
 
-// USER POST REQUEST
+// USER REGISTER POST REQUEST
 
 router.post('/register', async (req, res) => {
 	let user = new User({
@@ -71,7 +72,8 @@ router.post('/register', async (req, res) => {
 			return status.success200(res, savedPost)
 		}
 	} catch (err) {
-		res.json({message: err})
+		return status.servererror500(res, err)
+		
 	}
 })
 

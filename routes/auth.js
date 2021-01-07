@@ -1,9 +1,13 @@
 const express = require('express')
+const dotenv = require('dotenv')
+const jwt = require('jsonwebtoken')
 const router = express.Router()
 const User = require('../model/user')
 const bcrypt = require('bcrypt');
 var returnStatus = require('../controller/status')
 var status = new returnStatus()
+
+dotenv.config()
 
 router.post('/auth', async (req, res) => {
 	let user = await User.findOne({email: req.body.email})
@@ -18,12 +22,12 @@ router.post('/auth', async (req, res) => {
 		
 		if(!validatedPassword) {
 			return status.badrequest400(res, 'Incorrect email or password')
-
-		} else {
-			res.json({
-				'message': 'login'
-			})
 		}
+
+		const token = jwt.sign({_id:user.id}, process.env.TOKEN_SECRET)
+
+		res.header('auth-token', token).send(token)
+		
 	} catch (err) {
 		res.json({'message':err})
 	}

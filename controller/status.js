@@ -27,7 +27,7 @@ class returnStatus {
     servererror500(res, err) {
         res.json({
             'status':'500',
-            'error': err,
+            'message': err,
             'data': {}
         })
     }
