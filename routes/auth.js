@@ -11,8 +11,7 @@ dotenv.config()
 
 router.post('/auth', async (req, res) => {
 	let user = await User.findOne({email: req.body.email})
-	console.log(user)
-
+	
 	if(!user) {
 		return status.badrequest400(res, 'Incorrect email or password')
 	} 
@@ -26,8 +25,11 @@ router.post('/auth', async (req, res) => {
 
 		const token = jwt.sign({_id:user.id}, process.env.TOKEN_SECRET)
 
-		res.header('auth-token', token).send(token)
-		
+		// res.header('auth-token', token).send()
+		res.json({
+			'accessToken': token
+		})
+
 	} catch (err) {
 		res.json({'message':err})
 	}
