@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
 
 	if(!token) {
 		res.json({
-			'message':'ACCES DENIED'
+			'message':'You Need to Login First'
 		})
 	}
 

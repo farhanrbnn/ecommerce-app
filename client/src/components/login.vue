@@ -35,7 +35,14 @@ export default {
       DataService.create('/user/auth', data)
         .then((res) => {
           this.$cookies.set('accessToken', res.data.accessToken, 1)
-          this.$router.push("/shop")
+
+          if(res.data.accessToken) {
+            this.$router.push("/shop")
+
+          } else {
+            alert(res.data.message)
+
+          }
         })
         .catch((err) => {
           alert(err)

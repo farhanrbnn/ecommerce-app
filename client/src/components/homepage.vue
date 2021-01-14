@@ -5,6 +5,7 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="ml-auto">
+        <b-nav-item><b-img v-bind:src="require('@/assets/cart-logo.png')" fluid alt="Fluid image"></b-img></b-nav-item>
         <b-nav-item><router-link to="/login"><p id="router">Login</p></router-link></b-nav-item>
       </b-navbar-nav>
       </b-collapse>
