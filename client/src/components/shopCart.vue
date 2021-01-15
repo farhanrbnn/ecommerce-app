@@ -1,7 +1,7 @@
 <template>
 	<div class="shopCart">
 		 <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="#" id="brand">GamersCrib</b-navbar-brand>
+      <b-navbar-brand href="/" id="brand">GamersCrib</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="ml-auto">
@@ -11,8 +11,26 @@
       </b-collapse>
      </b-navbar>
      <b-container>
-     	<b-row>
-     	</b-row>
+     		<b-card v-if="orders" v-for="(data, idx) in orders">
+     			<b-row>
+      <b-col md="4">
+        <b-card-img id="product-image" :src="data.picture" alt="Image" class="rounded-0"></b-card-img>
+      </b-col>
+      <b-col md="8">
+        <b-card-body>
+          <b-card-text>
+          	<div class="float-left">
+          	  <h5>{{data.product}}</h5>
+          	  <h5>Rp. {{data.price}}</h5>
+          	</div>
+          </b-card-text>
+        </b-card-body>
+        <b-button class="float-right mt-5" variant="primary" >Submit</b-button>
+        <b-button class="float-right mt-5 mr-3" variant="danger" >Delete</b-button>
+
+      </b-col>
+    </b-row>
+     		</b-card>
      </b-container>
 	</div>
 </template>
@@ -26,8 +44,7 @@ export default {
 		}
 	},
 	created () {
-		let storeOrder = this.$store.state.orders
-		console.log(storeOrder)
+		this.orders = this.$store.state.order
 	}
 }	
 
@@ -44,5 +61,10 @@ export default {
   font-size: 20px;
   margin-bottom: 0;
   color: white;
+}
+
+#product-image {
+	width: 150px;
+	height: 150px;
 }
 </style>

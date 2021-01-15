@@ -62,16 +62,16 @@ export default {
       })
   },
   methods: {
-    buyNow () {
+   async buyNow () {
       let order = {
+        picture: this.datas.picture,
         product: this.datas.name,
         price: this.datas.price,
         quantity: this.value
       }
 
-      this.$store.commit('addOrder', order)
-      console.log(this.$store.state.order)
-      this.$router.push('/cart')
+      await this.$store.commit('addOrder', order)
+      await this.$router.push('/cart')
     }
   }
 }
