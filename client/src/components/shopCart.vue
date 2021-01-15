@@ -26,8 +26,7 @@
           </b-card-text>
         </b-card-body>
         <b-button class="float-right mt-5" variant="primary" >Submit</b-button>
-        <b-button class="float-right mt-5 mr-3" variant="danger" >Delete</b-button>
-
+        <b-button @click="deleteOrder(idx)" class="float-right mt-5 mr-3" variant="danger" >Delete</b-button>
       </b-col>
     </b-row>
      		</b-card>
@@ -45,6 +44,14 @@ export default {
 	},
 	created () {
 		this.orders = this.$store.state.order
+	},
+	methods: {
+		deleteOrder (index) {
+			this.orders.splice(index, 1)
+			const parse = JSON.stringify(this.orders)
+
+			localStorage.setItem('order', parse)
+		}
 	}
 }	
 
