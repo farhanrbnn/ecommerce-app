@@ -70,6 +70,7 @@ export default {
       }
 
       this.$store.commit('addOrder', order)
+      console.log(this.$store.state.order)
       this.$router.push('/cart')
     }
   }
