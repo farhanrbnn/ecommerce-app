@@ -11,7 +11,7 @@
       </b-collapse>
      </b-navbar>
      <b-container id="content">
-      <b-row class="justify-content-md-center">
+      <b-row v-if="datas" class="justify-content-md-center">
         <b-col cols="4">
           <img id="product-image" :src="datas.picture">
         </b-col>
@@ -26,8 +26,12 @@
               <h4 id="label" class="mr-3">price</h4>
               <h4>{{datas.price}}</h4>
             </b-row>
-            <b-button class="mt-3" variant="primary">Add to Cart</b-button>
-            <b-button class="mt-3" variant="primary">Buy Now</b-button>
+            <div>
+             <label for="amount">Jumlah</label>
+             <b-form-spinbutton id="amount" min="1" v-model="value" max="100"></b-form-spinbutton>
+            </div>
+            <b-button class="mt-3" variant="primary" >Add to Cart</b-button>
+            <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>
           </div>
         </b-col>
       </b-row>
@@ -44,18 +48,30 @@ export default {
   data () {
     return {
       datas: null,
-      url: '/' + this.userId
+      url: '/' + this.userId,
+      value: 1
     }
   },
   created () {
     DataService.getFindById(this.url)
       .then((res) => {
         this.datas = res.data.data
-        console.log(res.data.data)
       })
       .catch((err) => {
-        console.log('error when fetching API' + err)
+        alert('error when fetching API' + err)
       })
+  },
+  methods: {
+    buyNow () {
+      let order = {
+        product: this.datas.name,
+        price: this.datas.price,
+        quantity: this.value
+      }
+
+      this.$store.commit('addOrder', order)
+      console.log(this.$store.state.order)
+    }
   }
 }
 
