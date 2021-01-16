@@ -27,7 +27,7 @@
           <router-link id="card" :to="{name:'details', params: {userId: data._id}}">
             <b-card :img-src="data.picture" :title="data.name" style="max-width: 15rem;">
               <b-card-text>
-                {{data.price}}
+                Rp. {{data.price}}
               </b-card-text>
             </b-card>
             </router-link>
@@ -40,6 +40,7 @@
 
 <script>
 import DataService from '../web_service/services'
+import regex from '../utils/regex'
 
 export default {
   name: 'shop',
@@ -57,6 +58,9 @@ export default {
         let categoryArr = []
 
         for (let i = 0; i < apiData.length; i++) {
+          let priceRegex = regex(apiData[i].price)
+          apiData[i].price = priceRegex
+
           categoryArr.push(apiData[i].category)
           categoryArr.sort()
         }

@@ -24,8 +24,8 @@
                      <h5>{{data.product}}</h5>
                      <h5 class="mb-3">Rp. {{data.price}}</h5>
                      <label for="quantity">Quantity</label>
-                     <b-form-spinbutton id="quantity" inline></b-form-spinbutton>
-                     <h5 class="mt-4">Subtotal: Rp. {{data.price}}</h5>
+                     <b-form-spinbutton id="quantity" v-model="value" inline></b-form-spinbutton>
+                     <h5 class="mt-4">Subtotal: Rp. {{data.subTotal}}</h5>
                     </div>
                   </b-card-text>
                </b-card-body>
@@ -39,15 +39,26 @@
 </template>
 
 <script>
+import regex from '../utils/regex'
+
 export default {
   name: 'shopCart',
   data () {
     return {
-      orders: null
+      orders: null,
+      value: 0
     }
   },
   created () {
-    this.orders = this.$store.state.order
+    let localData = this.$store.state.order
+
+    for (let i = 0; i < localData.length; i++) {
+      let priceRegex = regex(localData[i].subTotal)
+
+      localData[i].subTotal = priceRegex
+    }
+
+    this.orders = localData
   },
   methods: {
     deleteOrder (index) {
@@ -55,6 +66,11 @@ export default {
       const parse = JSON.stringify(this.orders)
 
       localStorage.setItem('order', parse)
+    }
+  },
+  watch: {
+    subTotal () {
+
     }
   }
 }

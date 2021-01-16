@@ -22,7 +22,7 @@
             <router-link id="card" :to="{name:'details', params: {userId: data._id}}">
             <b-card :img-src="data.picture" img-alt="Image" img-top :title="data.name" style="max-width: 15rem;">
               <b-card-text>
-                  {{data.price}}
+                  Rp. {{data.price}}
               </b-card-text>
             </b-card>
             </router-link>

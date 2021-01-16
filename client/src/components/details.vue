@@ -22,10 +22,6 @@
               <h4 id="label" class="mr-3">price</h4>
               <h4>Rp.{{datas.price}}</h4>
             </b-row>
-            <b-row class="justify-content-md-left">
-              <h4 id="label" class="mr-3">price</h4>
-              <h4>{{datas.price}}</h4>
-            </b-row>
             <div>
              <label for="amount">Jumlah</label>
              <b-form-spinbutton id="amount" min="1" v-model="value" max="100"></b-form-spinbutton>
@@ -41,6 +37,8 @@
 
 <script>
 import DataService from '../web_service/services'
+import regex from '../utils/regex'
+import toInteger from '../utils/toInteger'
 
 export default {
   name: 'details',
@@ -55,7 +53,10 @@ export default {
   created () {
     DataService.getFindById(this.url)
       .then((res) => {
-        this.datas = res.data.data
+        let apiData = res.data.data
+        apiData.price = regex(apiData.price)
+
+        this.datas = apiData
       })
       .catch((err) => {
         alert('error when fetching API' + err)
@@ -63,22 +64,30 @@ export default {
   },
   methods: {
     buyNow () {
-      let order = {
+     let priceInt = toInteger(this.datas.price)
+     let total = this.value*priceInt
+
+     let order = {
         picture: this.datas.picture,
         product: this.datas.name,
         price: this.datas.price,
-        quantity: this.value
+        quantity: this.value,
+        subTotal: total
       }
 
       this.$store.commit('addOrder', order)
       this.$router.push('/cart')
     },
     addToCart () {
+      let priceInt = toInteger(this.datas.price)
+      let total = this.value*priceInt
+
       let order = {
         picture: this.datas.picture,
         product: this.datas.name,
         price: this.datas.price,
-        quantity: this.value
+        quantity: this.value,
+        subTotal: total
       }
 
       try {
@@ -97,6 +106,9 @@ export default {
         })
       }
     }
+  },
+  watch: {
+
   }
 }
 
