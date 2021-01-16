@@ -39,6 +39,7 @@
 
 <script>
 import DataService from '../web_service/services'
+import regex from '../utils/regex'
 
 export default {
   name: 'homepage',
@@ -53,7 +54,15 @@ export default {
   created () {
     DataService.getAllData()
       .then((res) => {
-        this.datas = res.data.data
+        let apiData = res.data.data
+
+        for (let i = 0; i < apiData.length; i++) {
+          let priceRegex = regex(apiData[i].price)
+
+          apiData[i].price = priceRegex
+        }
+
+        this.datas = apiData
       })
       .catch((err) => {
         alert('error when catching API' + err)

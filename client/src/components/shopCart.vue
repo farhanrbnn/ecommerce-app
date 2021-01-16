@@ -1,6 +1,6 @@
 <template>
   <div class="shopCart">
-     <b-navbar toggleable="lg" type="dark" variant="dark">
+     <b-navbar class="mb-5" toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand href="/" id="brand">GamersCrib</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
@@ -14,24 +14,25 @@
       <h3 class="no-items" v-if="orders.length === 0">Your cart is empty</h3>
         <b-card v-if="orders" v-for="(data, idx) in orders" :key="idx">
           <b-row>
-      <b-col md="4">
-        <b-card-img id="product-image" :src="data.picture" alt="Image" class="rounded-0"></b-card-img>
-      </b-col>
-      <b-col md="8">
-        <b-card-body>
-          <b-card-text>
-            <div class="float-left">
-              <h5>{{data.product}}</h5>
-              <h5>Rp. {{data.price}}</h5>
-              <label for="quantity">Quantity</label>
-              <b-form-spinbutton id="quantity" inline></b-form-spinbutton>
-            </div>
-          </b-card-text>
-        </b-card-body>
-        <b-button class="float-right mt-5" variant="primary" >Submit</b-button>
-        <b-button @click="deleteOrder(idx)" class="float-right mt-5 mr-3" variant="danger" >Delete</b-button>
-      </b-col>
-    </b-row>
+            <b-col md="4">
+              <b-card-img id="product-image" :src="data.picture" alt="Image" class="rounded-0"></b-card-img>
+            </b-col>
+            <b-col md="8">
+               <b-card-body>
+                 <b-card-text>
+                   <div class="float-left">
+                     <h5>{{data.product}}</h5>
+                     <h5 class="mb-3">Rp. {{data.price}}</h5>
+                     <label for="quantity">Quantity</label>
+                     <b-form-spinbutton id="quantity" inline></b-form-spinbutton>
+                     <h5 class="mt-4">Subtotal: Rp. {{data.price}}</h5>
+                    </div>
+                  </b-card-text>
+               </b-card-body>
+              <b-button class="float-right mt-5" variant="primary" >Submit</b-button>
+              <b-button @click="deleteOrder(idx)" class="float-right mt-5 mr-3" variant="danger" >Delete</b-button>
+           </b-col>
+         </b-row>
         </b-card>
      </b-container>
   </div>
