@@ -2,6 +2,7 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <router-view/>
+    <notifications group="cart" position="top center" width="500"/>
   </div>
 </template>
 

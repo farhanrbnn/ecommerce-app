@@ -11,6 +11,7 @@
       </b-collapse>
      </b-navbar>
      <b-container>
+     	<h3 class="no-items" v-if="orders.length === 0">Your cart is empty</h3>
      		<b-card v-if="orders" v-for="(data, idx) in orders">
      			<b-row>
       <b-col md="4">
@@ -22,6 +23,8 @@
           	<div class="float-left">
           	  <h5>{{data.product}}</h5>
           	  <h5>Rp. {{data.price}}</h5>
+          	  <label for="quantity">Quantity</label>
+              <b-form-spinbutton id="quantity" inline></b-form-spinbutton>
           	</div>
           </b-card-text>
         </b-card-body>
@@ -60,6 +63,10 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
 
+.no-items {
+	margin-top: 200px;
+}
+
 #brand {
   font-family: 'Krona One', sans-serif;
 
@@ -74,4 +81,6 @@ export default {
 	width: 150px;
 	height: 150px;
 }
+
+
 </style>

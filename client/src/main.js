@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import BootstrapVue from 'bootstrap-vue'
+import Notifications from 'vue-notification'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueCookie from 'vue-cookies'
@@ -12,6 +13,7 @@ import VueCookie from 'vue-cookies'
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(VueCookie)
+Vue.use(Notifications)
 
 /* eslint-disable no-new */
 new Vue({

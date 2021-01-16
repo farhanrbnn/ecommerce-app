@@ -30,7 +30,7 @@
              <label for="amount">Jumlah</label>
              <b-form-spinbutton id="amount" min="1" v-model="value" max="100"></b-form-spinbutton>
             </div>
-            <b-button class="mt-3" variant="primary" >Add to Cart</b-button>
+            <b-button class="mt-3" @click="addToCart" variant="primary" >Add to Cart</b-button>
             <b-button class="mt-3" @click="buyNow"  variant="primary">Buy Now</b-button>
           </div>
         </b-col>
@@ -72,6 +72,22 @@ export default {
 
       await this.$store.commit('addOrder', order)
       await this.$router.push('/cart')
+    },
+    addToCart () {
+      let order = {
+        picture: this.datas.picture,
+        product: this.datas.name,
+        price: this.datas.price,
+        quantity: this.value
+      }
+
+      this.$store.commit('addOrder', order)
+
+      this.$notify({
+        group: 'cart',
+        text: 'Success add item to cart',
+        type: 'success'
+      })
     }
   }
 }
