@@ -34,43 +34,52 @@
            </b-col>
          </b-row>
         </b-card>
+        <h5 v-if="orders.length" class="float-left mt-5">Grand Total: Rp. {{grand}} </h5>
      </b-container>
   </div>
 </template>
 
 <script>
 import regex from '../utils/regex'
+import grandTotal from '../utils/grandTotal'
 
 export default {
   name: 'shopCart',
   data () {
     return {
       orders: null,
-      value: 0
+      value: 0,
+      grand: 0
     }
   },
   created () {
     let localData = this.$store.state.order
+    let total = []
 
     for (let i = 0; i < localData.length; i++) {
       let priceRegex = regex(localData[i].subTotal)
+      total.push(localData[i].subTotal)
 
       localData[i].subTotal = priceRegex
     }
-
+    
+    const parse = JSON.stringify(total)
+    localStorage.setItem('grandTotal', parse)
+ 
+    this.grand = regex(grandTotal('sum'))
     this.orders = localData
   },
   methods: {
     deleteOrder (index) {
       this.orders.splice(index, 1)
+      const subGrandTotal = grandTotal('sub', index)
+
+      const parseGrandTotal = JSON.stringify(subGrandTotal)
       const parse = JSON.stringify(this.orders)
-
+      console.log(subGrandTotal)
+      this.grand = regex(subGrandTotal)
+      localStorage.setItem('grandTotal', parseGrandTotal)
       localStorage.setItem('order', parse)
-    }
-  },
-  watch: {
-    subTotal () {
-
     }
   }
 }
