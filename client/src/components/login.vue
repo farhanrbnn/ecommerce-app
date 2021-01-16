@@ -36,12 +36,10 @@ export default {
         .then((res) => {
           this.$cookies.set('accessToken', res.data.accessToken, 1)
 
-          if(res.data.accessToken) {
-            this.$router.push("/shop")
-
+          if (res.data.accessToken) {
+            this.$router.push('/shop')
           } else {
             alert(res.data.message)
-
           }
         })
         .catch((err) => {

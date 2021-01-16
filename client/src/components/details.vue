@@ -62,7 +62,7 @@ export default {
       })
   },
   methods: {
-   async buyNow () {
+    buyNow () {
       let order = {
         picture: this.datas.picture,
         product: this.datas.name,
@@ -70,8 +70,8 @@ export default {
         quantity: this.value
       }
 
-      await this.$store.commit('addOrder', order)
-      await this.$router.push('/cart')
+      this.$store.commit('addOrder', order)
+      this.$router.push('/cart')
     },
     addToCart () {
       let order = {
@@ -81,13 +81,21 @@ export default {
         quantity: this.value
       }
 
-      this.$store.commit('addOrder', order)
+      try {
+        this.$store.commit('addOrder', order)
 
-      this.$notify({
-        group: 'cart',
-        text: 'Success add item to cart',
-        type: 'success'
-      })
+        this.$notify({
+          group: 'cart',
+          text: 'Success add item to cart',
+          type: 'success'
+        })
+      } catch (err) {
+        this.$notify({
+          group: 'cart',
+          text: 'Failed add item to cart',
+          type: 'warn'
+        })
+      }
     }
   }
 }

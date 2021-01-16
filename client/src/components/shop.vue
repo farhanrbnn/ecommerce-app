@@ -17,7 +17,7 @@
         <h4>Category</h4>
         <b-form-select v-model="selected">
          <b-form-select-option :value="cat" v-for="(cat, index) in categoryList" :key="index">{{ cat }}</b-form-select-option>
-        </b-form-select>  
+        </b-form-select>
        <b-button class="mt-3" variant="primary" @click="select">Select</b-button>
        </div>
        <div id="main">
@@ -73,23 +73,23 @@ export default {
         category: this.selected
       }
 
-      if(this.selected === 'All') {
+      if (this.selected === 'All') {
         DataService.getAllData()
+          .then((res) => {
+            this.datas = res.data.data
+          })
+          .catch((err) => {
+            alert('error when fetching API: ' + err)
+          })
+      }
+
+      DataService.create('/post/items', postCat)
         .then((res) => {
           this.datas = res.data.data
         })
         .catch((err) => {
-          alert('error when fetching API: ' + err)
+          console.log(err)
         })
-      }
-
-      DataService.create('/post/items', postCat)
-      .then((res) => {
-        this.datas = res.data.data
-      })
-      .catch((err) => {
-        console.log(err)
-      })
     }
   },
   computed: {
@@ -112,7 +112,7 @@ export default {
     },
     categoryList () {
       let array = this.category
-      let categoryArr = ["All"]
+      let categoryArr = ['All']
 
       if (array) {
         for (let i = 0; i < array.length; i++) {

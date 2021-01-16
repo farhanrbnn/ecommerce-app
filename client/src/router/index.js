@@ -8,7 +8,6 @@ import details from '@/components/details'
 import register from '@/components/register'
 import shopCart from '@/components/shopCart'
 
-
 Vue.use(Router)
 
 export default new Router({

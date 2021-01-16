@@ -1,6 +1,6 @@
 <template>
-	<div class="shopCart">
-		 <b-navbar toggleable="lg" type="dark" variant="dark">
+  <div class="shopCart">
+     <b-navbar toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand href="/" id="brand">GamersCrib</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
@@ -11,52 +11,52 @@
       </b-collapse>
      </b-navbar>
      <b-container>
-     	<h3 class="no-items" v-if="orders.length === 0">Your cart is empty</h3>
-     		<b-card v-if="orders" v-for="(data, idx) in orders">
-     			<b-row>
+      <h3 class="no-items" v-if="orders.length === 0">Your cart is empty</h3>
+        <b-card v-if="orders" v-for="(data, idx) in orders" :key="idx">
+          <b-row>
       <b-col md="4">
         <b-card-img id="product-image" :src="data.picture" alt="Image" class="rounded-0"></b-card-img>
       </b-col>
       <b-col md="8">
         <b-card-body>
           <b-card-text>
-          	<div class="float-left">
-          	  <h5>{{data.product}}</h5>
-          	  <h5>Rp. {{data.price}}</h5>
-          	  <label for="quantity">Quantity</label>
+            <div class="float-left">
+              <h5>{{data.product}}</h5>
+              <h5>Rp. {{data.price}}</h5>
+              <label for="quantity">Quantity</label>
               <b-form-spinbutton id="quantity" inline></b-form-spinbutton>
-          	</div>
+            </div>
           </b-card-text>
         </b-card-body>
         <b-button class="float-right mt-5" variant="primary" >Submit</b-button>
         <b-button @click="deleteOrder(idx)" class="float-right mt-5 mr-3" variant="danger" >Delete</b-button>
       </b-col>
     </b-row>
-     		</b-card>
+        </b-card>
      </b-container>
-	</div>
+  </div>
 </template>
 
 <script>
 export default {
-	name: 'shopCart',
-	data () {
-		return {
-			orders: null
-		}
-	},
-	created () {
-		this.orders = this.$store.state.order
-	},
-	methods: {
-		deleteOrder (index) {
-			this.orders.splice(index, 1)
-			const parse = JSON.stringify(this.orders)
+  name: 'shopCart',
+  data () {
+    return {
+      orders: null
+    }
+  },
+  created () {
+    this.orders = this.$store.state.order
+  },
+  methods: {
+    deleteOrder (index) {
+      this.orders.splice(index, 1)
+      const parse = JSON.stringify(this.orders)
 
-			localStorage.setItem('order', parse)
-		}
-	}
-}	
+      localStorage.setItem('order', parse)
+    }
+  }
+}
 
 </script>
 
@@ -64,7 +64,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
 
 .no-items {
-	margin-top: 200px;
+  margin-top: 200px;
 }
 
 #brand {
@@ -78,9 +78,7 @@ export default {
 }
 
 #product-image {
-	width: 150px;
-	height: 150px;
+  width: 150px;
+  height: 150px;
 }
-
-
 </style>
