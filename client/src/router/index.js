@@ -7,6 +7,7 @@ import inputGoods from '@/components/inputGoods'
 import details from '@/components/details'
 import register from '@/components/register'
 import shopCart from '@/components/shopCart'
+import checkout from '@/components/checkout'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
       path: '/cart',
       name: 'cart',
       component: shopCart
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: checkout
     }
   ]
 })

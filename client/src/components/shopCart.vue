@@ -29,12 +29,12 @@
                     </div>
                   </b-card-text>
                </b-card-body>
-              <b-button class="float-right mt-5" variant="primary" >Submit</b-button>
               <b-button @click="deleteOrder(idx)" class="float-right mt-5 mr-3" variant="danger" >Delete</b-button>
            </b-col>
          </b-row>
         </b-card>
         <h5 v-if="orders.length" class="float-left mt-5">Grand Total: Rp. {{grandTotal}} </h5>
+        <b-button v-if="orders.length" class="float-right mt-5" variant="primary" >Checkout</b-button>
      </b-container>
   </div>
 </template>
