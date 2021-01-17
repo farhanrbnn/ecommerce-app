@@ -49,8 +49,7 @@ export default {
   data () {
     return {
       orders: null,
-      value: 0,
-      grand: 0
+      value: 0
     }
   },
   created () {
@@ -61,20 +60,16 @@ export default {
       let priceRegex = regex(localData[i].subTotal)
       total.push(localData[i].subTotal)
 
+      // change int to regexed subTotal
       localData[i].subTotal = priceRegex
     }
-    
+
+    this.grand = total
     this.orders = localData
   },
   methods: {
     deleteOrder (index) {
       let orderData = this.orders
-
-      for (let i = 0; i < orderData.length; i++) {
-        let subTotalInt = toInteger(orderData[i].subTotal)
-        orderData[i].subTotal = subTotalInt
-
-      }
 
       orderData.splice(index, 1) 
       const parse = JSON.stringify(orderData)
@@ -84,20 +79,16 @@ export default {
   },
   computed: {
     grandTotal () {
-      // let test = JSON.parse(localStorage.getItem('order'))
-      // let subTotal = []
+      let orderData = this.orders
+      let arrSubtotal = []
 
-      // for (let i = 0; i < test.length; i++) {
-      //  subTotal.push(test[i].subTotal)
-      // }
+      for (let i = 0; i < orderData.length; i++) {
+        let subTotalInt = toInteger(orderData[i].subTotal)
+        arrSubtotal.push(subTotalInt)
+      }
 
-      // let sum = subTotal.reduce((a,b) => {
-      //   return a+b
-      // }, 0)
-
-      // console.log(subTotal)
-      let total = 0
-      return total
+      let sumTotal = regex(grandTotal(arrSubtotal, 'sum'))
+      return sumTotal
     }   
   }
 }
