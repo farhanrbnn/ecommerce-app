@@ -34,7 +34,7 @@
            </b-col>
          </b-row>
         </b-card>
-        <h5 v-if="orders.length" class="float-left mt-5">Grand Total: Rp. {{grand}} </h5>
+        <h5 v-if="orders.length" class="float-left mt-5">Grand Total: Rp. {{grandTotal}} </h5>
      </b-container>
   </div>
 </template>
@@ -42,6 +42,7 @@
 <script>
 import regex from '../utils/regex'
 import grandTotal from '../utils/grandTotal'
+import toInteger from '../utils/toInteger'
 
 export default {
   name: 'shopCart',
@@ -63,24 +64,41 @@ export default {
       localData[i].subTotal = priceRegex
     }
     
-    const parse = JSON.stringify(total)
-    localStorage.setItem('grandTotal', parse)
- 
-    this.grand = regex(grandTotal('sum'))
     this.orders = localData
   },
   methods: {
     deleteOrder (index) {
-      this.orders.splice(index, 1)
-      const subGrandTotal = grandTotal('sub', index)
+      let orderData = this.orders
 
-      const parseGrandTotal = JSON.stringify(subGrandTotal)
-      const parse = JSON.stringify(this.orders)
-      console.log(subGrandTotal)
-      this.grand = regex(subGrandTotal)
-      localStorage.setItem('grandTotal', parseGrandTotal)
+      for (let i = 0; i < orderData.length; i++) {
+        let subTotalInt = toInteger(orderData[i].subTotal)
+        orderData[i].subTotal = subTotalInt
+
+      }
+
+      orderData.splice(index, 1) 
+      const parse = JSON.stringify(orderData)
+
       localStorage.setItem('order', parse)
     }
+  },
+  computed: {
+    grandTotal () {
+      // let test = JSON.parse(localStorage.getItem('order'))
+      // let subTotal = []
+
+      // for (let i = 0; i < test.length; i++) {
+      //  subTotal.push(test[i].subTotal)
+      // }
+
+      // let sum = subTotal.reduce((a,b) => {
+      //   return a+b
+      // }, 0)
+
+      // console.log(subTotal)
+      let total = 0
+      return total
+    }   
   }
 }
 
