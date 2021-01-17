@@ -64,6 +64,7 @@ export default {
           categoryArr.push(apiData[i].category)
           categoryArr.sort()
         }
+
         this.datas = apiData
         this.category = categoryArr
       })
@@ -80,7 +81,15 @@ export default {
       if (this.selected === 'All') {
         DataService.getAllData()
           .then((res) => {
-            this.datas = res.data.data
+            let apiData = res.data.data
+
+            for (let i = 0; i < apiData.length; i++) {
+              let priceRegex = regex(apiData[i].price)
+              apiData[i].price = priceRegex
+
+            }
+
+            this.datas = apiData
           })
           .catch((err) => {
             alert('error when fetching API: ' + err)
@@ -89,7 +98,15 @@ export default {
 
       DataService.create('/post/items', postCat)
         .then((res) => {
-          this.datas = res.data.data
+          let apiData = res.data.data
+
+          for (let i = 0; i < apiData.length; i++) {
+            let priceRegex = regex(apiData[i].price)
+            apiData[i].price = priceRegex
+
+          }
+
+          this.datas = apiData
         })
         .catch((err) => {
           console.log(err)

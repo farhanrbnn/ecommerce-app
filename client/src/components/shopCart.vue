@@ -34,7 +34,9 @@
          </b-row>
         </b-card>
         <h5 v-if="orders.length" class="float-left mt-5">Grand Total: Rp. {{grandTotal}} </h5>
-        <b-button v-if="orders.length" class="float-right mt-5" variant="primary" >Checkout</b-button>
+        <router-link to="/checkout">
+          <b-button v-if="orders.length" class="float-right mt-5" variant="primary" >Checkout</b-button>
+        </router-link>
      </b-container>
   </div>
 </template>
