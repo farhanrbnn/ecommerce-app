@@ -27,13 +27,16 @@
                   <p>{{data.product}}</p>
                 </div>
                 <div class="mt-3">
-                  <h5>Grand Total: </h5>
+                  <h5>Grand Total :  </h5>
                 </div>
               </b-col>
               <b-col sm="6">
                 <p>subtotal</p>
                 <div v-if="orders" v-for="(data, idx) in orders" :key="idx">
                 <p> Rp.{{data.subTotal}} </p>
+                </div>
+                <div class="mt-3">
+                  <h5> Rp. {{grandTotal}} </h5>
                 </div>
               </b-col>
             </b-row>
@@ -47,6 +50,8 @@
 
 <script>
 import regex from '../utils/regex'
+import toInteger from '../utils/toInteger'
+import grandTotal from '../utils/grandTotal'
 
 export default {
   name: 'checkout',
@@ -64,6 +69,20 @@ export default {
     }
 
     this.orders = localData
+  },
+  computed: {
+    grandTotal () {
+      let orderData = this.orders
+      let arrSubtotal = []
+
+      for (let i = 0; i < orderData.length; i++) {
+        let subTotalInt = toInteger(orderData[i].subTotal)
+        arrSubtotal.push(subTotalInt)
+      }
+
+      let sumTotal = regex(grandTotal(arrSubtotal, 'sum'))
+      return sumTotal
+    }
   }
 }
 
