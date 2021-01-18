@@ -64,10 +64,10 @@ export default {
   },
   methods: {
     buyNow () {
-     let priceInt = toInteger(this.datas.price)
-     let total = this.value*priceInt
+      let priceInt = toInteger(this.datas.price)
+      let total = this.value * priceInt
 
-     let order = {
+      let order = {
         picture: this.datas.picture,
         product: this.datas.name,
         price: this.datas.price,
@@ -80,7 +80,7 @@ export default {
     },
     addToCart () {
       let priceInt = toInteger(this.datas.price)
-      let total = this.value*priceInt
+      let total = this.value * priceInt
 
       let order = {
         picture: this.datas.picture,

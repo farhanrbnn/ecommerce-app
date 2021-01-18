@@ -22,9 +22,7 @@
                  <b-card-text>
                    <div class="float-left">
                      <h5>{{data.product}}</h5>
-                     <h5 class="mb-3">Rp. {{data.price}}</h5>
-                     <label for="quantity">Quantity</label>
-                     <b-form-spinbutton id="quantity" v-model="value" inline></b-form-spinbutton>
+                     <h5>{{data.quantity}} X Rp. {{data.price}}</h5>
                      <h5 class="mt-4">Subtotal: Rp. {{data.subTotal}}</h5>
                     </div>
                   </b-card-text>
@@ -73,7 +71,7 @@ export default {
     deleteOrder (index) {
       let orderData = this.orders
 
-      orderData.splice(index, 1) 
+      orderData.splice(index, 1)
       const parse = JSON.stringify(orderData)
 
       localStorage.setItem('order', parse)
@@ -91,7 +89,7 @@ export default {
 
       let sumTotal = regex(grandTotal(arrSubtotal, 'sum'))
       return sumTotal
-    }   
+    }
   }
 }
 

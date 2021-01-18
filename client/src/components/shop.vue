@@ -86,7 +86,6 @@ export default {
             for (let i = 0; i < apiData.length; i++) {
               let priceRegex = regex(apiData[i].price)
               apiData[i].price = priceRegex
-
             }
 
             this.datas = apiData
@@ -103,9 +102,7 @@ export default {
           for (let i = 0; i < apiData.length; i++) {
             let priceRegex = regex(apiData[i].price)
             apiData[i].price = priceRegex
-
           }
-
           this.datas = apiData
         })
         .catch((err) => {
