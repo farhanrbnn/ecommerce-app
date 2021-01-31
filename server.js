@@ -25,7 +25,7 @@ app.use(bodyParser.json({ limit: '1mb' }))
 app.use(bodyParser.urlencoded({ limit: '1mb', extended: true }))
 
 // db connection
-mongoose.connect(dbUrl, {
+mongoose.connect(process.env.DB_CONNECT, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 })

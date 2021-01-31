@@ -12,10 +12,26 @@
      </b-navbar>
      <b-container>
       <b-row>
-        <b-col md="8">
-          <h4 class="float-left">BILLING DETAILS</h4>
+        <b-col md="6">
+          <h4>BILLING DETAILS</h4>
+          <div class=" mt-4"> 
+            <b-form inline>
+              <label class="sr-only" for="first-name">First Name</label>
+             <b-form-input
+              id="first-name"
+              class="mb-2 mr-sm-2 mb-sm-0"
+              placeholder="Jane Doe"
+              ></b-form-input>
+              <label class="sr-only" for="last-name">Last Name</label>
+             <b-form-input
+              id="last-name"
+              class="mb-2 mr-sm-2 mb-sm-0"
+              placeholder="Jane Doe"
+              ></b-form-input>
+            </b-form>
+          </div>
         </b-col>
-        <b-col md="4">
+        <b-col md="6">
           <h4 class="mb-4">ORDER SUMMARY</h4>
           <div id="order-summary">
           <h5>Your Order</h5>

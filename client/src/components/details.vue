@@ -75,6 +75,7 @@ export default {
         subTotal: total
       }
 
+
       this.$store.commit('addOrder', order)
       this.$router.push('/cart')
     },
@@ -88,6 +89,17 @@ export default {
         price: this.datas.price,
         quantity: this.value,
         subTotal: total
+      }
+
+      let test = JSON.parse(localStorage.getItem('order'))
+
+      if (test) {
+        for (let i = 0; i < test.length; i++) {
+          if (order.product === test[i].product) {
+            let totalQuantity = order.quantity + test[i].quantity 
+            console.log(totalQuantity)
+          }
+        }
       }
 
       try {
@@ -106,9 +118,6 @@ export default {
         })
       }
     }
-  },
-  watch: {
-
   }
 }
 
