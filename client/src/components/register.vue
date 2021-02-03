@@ -47,12 +47,14 @@ export default {
           this.lastName = ''
           this.email = ''
           this.password = ''
-          
+
           this.$notify({
             group: 'auth',
             text: 'register successful',
             type: 'success'
           })
+
+          this.$router.push('/login')
         })
         .catch((err) => {
           alert('something went wrong' + err)

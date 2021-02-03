@@ -1,39 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const Post = require('../model/goods')
-var returnStatus = require('../controller/status')
-var status = new returnStatus()
+const itemsController = require('../controller/itemsController')
 
-router.get('/', async (req,res) => {
-	try {
-		const getData = await Post.find()
-	
-		if(getData){
-			return status.success200(res, getData)
-		}
-		else {
-			return status.badrequest400(res, 'something went wrong')
-		}
-
-	} catch (err) {
-		return status.notfound404(res, err)
-	}
-})
-
-router.get('/:id', async(req, res)=>{
-	try{
-		const getData = await Post.findById(req.params.id, {_id:0})
-
-		if(getData){
-			return status.success200(res, getData)
-		}
-		else {
-			return status.badrequest400(res, 'something went wrong')
-		}
-		
-	} catch (err) {
-		return status.notfound404(res, err)
-	} 
-})
+router.get('/', itemsController.get_all_items)
+router.get('/:id', itemsController.get_item_by_id)
 
 module.exports = router

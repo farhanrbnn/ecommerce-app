@@ -35,8 +35,7 @@ export default {
       DataService.create('/user/auth', data)
         .then((res) => {
           this.$router.push('/shop')
-          console.log(res.data.status)
-
+      
           this.$notify({
             group: 'auth',
             text: 'login successful',
