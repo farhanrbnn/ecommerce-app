@@ -10,11 +10,20 @@ const register = async (req, res) => {
 		password: req.body.password
 	})
 
+	let validatePass = {
+		confirm: req.body.confirmPassword
+	}
+
 	try {
 		let validate = await User.findOne({email:req.body.email})
 
 		if (validate) {
 			return statusController.badRequest400(res, 'user already exist')
+
+		} 
+
+		if (validatePass.confirm != user.password){
+			return statusController.badRequest400(res, "password doesn't match")
 
 		} else {
 			let encrypted = await bcrypt.genSalt(10)

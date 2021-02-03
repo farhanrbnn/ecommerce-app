@@ -14,6 +14,9 @@
       <b-form-group id="input-group-4" label="Password" label-for="input-4">
         <b-form-input id="input-4" type="password" placeholder="password" v-model="password" autocomplete="off"></b-form-input>
       </b-form-group>
+       <b-form-group id="input-group-5" label="re-enter password" label-for="input-5">
+        <b-form-input id="input-5" type="password" placeholder="re-enter password" v-model="confirmPassword" autocomplete="off"></b-form-input>
+      </b-form-group>
        <b-button class="mt-3" variant="primary" @click="postData">Submit</b-button>
     </div>
   </div>
@@ -29,7 +32,8 @@ export default {
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      password: '',
+      confirmPassword: ''
     }
   },
   methods: {
@@ -38,19 +42,17 @@ export default {
         firstName: this.firstName,
         lastName: this.lastName,
         email: this.email,
-        password: this.password
+        password: this.password,
+        confirmPassword: this.confirmPassword
       }
 
       DataService.create('/post/register', data)
         .then((res) => {
-          this.firstName = ''
-          this.lastName = ''
-          this.email = ''
-          this.password = ''
-
-          console.log(res.data)
-
           if (res.data.status === '400') {
+            this.email = ''
+            this.password = ''
+            this.confirmPassword = ''
+            
             this.$notify({
               group: 'auth',
               text: res.data.message,
