@@ -38,16 +38,21 @@ export default {
         firstName: this.firstName,
         lastName: this.lastName,
         email: this.email,
-        password: this.email
+        password: this.password
       }
 
       DataService.create('/post/register', data)
         .then((res) => {
-          alert('register success')
           this.firstName = ''
           this.lastName = ''
           this.email = ''
           this.password = ''
+          
+          this.$notify({
+            group: 'auth',
+            text: 'register successful',
+            type: 'success'
+          })
         })
         .catch((err) => {
           alert('something went wrong' + err)

@@ -34,13 +34,15 @@ export default {
 
       DataService.create('/user/auth', data)
         .then((res) => {
-          this.$cookies.set('accessToken', res.data.accessToken, 1)
+          this.$router.push('/shop')
+          console.log(res.data.status)
 
-          if (res.data.accessToken) {
-            this.$router.push('/shop')
-          } else {
-            alert(res.data.message)
-          }
+          this.$notify({
+            group: 'auth',
+            text: 'login successful',
+            type: 'success'
+          })
+
         })
         .catch((err) => {
           alert(err)

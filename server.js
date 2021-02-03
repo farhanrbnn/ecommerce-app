@@ -14,7 +14,6 @@ let corsOption = {
 }
 
 // import module
-const { dbUrl } = require('./config/db')
 const getRoute = require('./routes/get')
 const postRoute = require('./routes/post')
 const authRoute = require('./routes/auth')

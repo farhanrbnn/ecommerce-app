@@ -3,6 +3,7 @@
     <!-- <img src="./assets/logo.png"> -->
     <router-view/>
     <notifications group="cart" position="top center" width="500"/>
+    <notifications group="auth" position="top center" width="500"/>
   </div>
 </template>
 

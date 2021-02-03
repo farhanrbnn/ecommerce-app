@@ -60,6 +60,13 @@ export default {
           this.category = ''
           this.price = ''
           this.quantity = ''
+
+          this.$notify({
+            group: 'cart',
+            text: 'success add item',
+            type: 'success'
+          })
+          
         })
         .catch((err) => {
           alert('something wrong' + err)
