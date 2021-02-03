@@ -48,13 +48,24 @@ export default {
           this.email = ''
           this.password = ''
 
-          this.$notify({
-            group: 'auth',
-            text: 'register successful',
-            type: 'success'
-          })
+          console.log(res.data)
 
-          this.$router.push('/login')
+          if (res.data.status === '400') {
+            this.$notify({
+              group: 'auth',
+              text: res.data.message,
+              type: 'warn'
+            })
+
+          } else {
+            this.$notify({
+              group: 'auth',
+              text: 'register successful',
+              type: 'success'
+            })
+            this.$router.push('/login')
+
+          }
         })
         .catch((err) => {
           alert('something went wrong' + err)

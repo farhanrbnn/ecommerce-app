@@ -34,14 +34,23 @@ export default {
 
       DataService.create('/user/auth', data)
         .then((res) => {
-          this.$router.push('/shop')
-      
-          this.$notify({
-            group: 'auth',
-            text: 'login successful',
-            type: 'success'
-          })
+          if (res.data.status === '404') {
+            this.$notify({
+              group: 'auth',
+              text: 'Incorrect e-mail or password',
+              type: 'warn'
+            })
 
+          } else {
+            this.$notify({
+              group: 'auth',
+              text: 'login successfull',
+              type: 'success'
+            })
+
+            this.$router.push('/shop')
+
+          }
         })
         .catch((err) => {
           alert(err)

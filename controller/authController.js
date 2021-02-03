@@ -6,27 +6,23 @@ const login = async (req, res) =>{
 	let user = await User.findOne({email:req.body.email})
 
 	if (!user) {
-		return res.json({
-			'message':'incorrect email or password'
-		})
+		return statusController.notFound404(res)
 	}
 
 	try {
 		let validatedPassword = await bcrypt.compare(req.body.password, user.password)
 
 		if (!validatedPassword) {
-			return res.json({
-				'message':'incorrect email or password'
-			})
+			return statusController.notFound404(res)
+			
 		} else {
 			return res.json({
+				'status':'200',
 				'message':'login'
 			})
 		}
 	} catch (err) {
-		res.json({
-			'message': err
-		})
+		return statusController.badRequest400(res, err)
 	}
 }
 

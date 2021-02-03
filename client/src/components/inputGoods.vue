@@ -54,7 +54,6 @@ export default {
 
       DataService.create('/post', data)
         .then((res) => {
-          alert(res)
           // make form empty
           this.name = ''
           this.category = ''

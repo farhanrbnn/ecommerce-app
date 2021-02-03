@@ -1,7 +1,8 @@
 const User = require('../model/user')
 const bcrypt = require('bcrypt')
+const statusController = require('../controller/statusController')
 
-const register = async (req, res)=>{
+const register = async (req, res) => {
 	let user = new User({
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
@@ -13,9 +14,7 @@ const register = async (req, res)=>{
 		let validate = await User.findOne({email:req.body.email})
 
 		if (validate) {
-			return res.json({
-				'message': 'user already exist'
-			})
+			return statusController.badRequest400(res, 'user already exist')
 
 		} else {
 			let encrypted = await bcrypt.genSalt(10)
