@@ -1,6 +1,16 @@
 const bcrypt = require('bcrypt')
 const User = require('../model/user')
 const statusController = require('../controller/statusController')
+const jwt = require('jsonwebtoken')
+
+
+const maxAge = 3 * 24 * 60 * 60
+
+const createToken = (id) => {
+	return jwt.sign({ id }, 'sadasdwdqwdqwddq', {
+		expiresIn: maxAge
+	})
+}
 
 const login = async (req, res) =>{
 	let user = await User.findOne({email:req.body.email})
@@ -16,10 +26,12 @@ const login = async (req, res) =>{
 			return statusController.notFound404(res)
 			
 		} else {
+			const token = createToken(user._id)
 			return res.json({
 				'status':'200',
-				'message':'login'
+				'token': token
 			})
+			
 		}
 	} catch (err) {
 		return statusController.badRequest400(res, err)

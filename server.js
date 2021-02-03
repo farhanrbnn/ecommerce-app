@@ -2,6 +2,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const dotenv = require('dotenv')
 const cors = require('cors')
 const app  = express()
@@ -19,9 +20,11 @@ const postRoute = require('./routes/post')
 const authRoute = require('./routes/auth')
 const testRoute = require('./routes/testPrivateRoute')
 
+// middleware
 app.use(cors(corsOption))
 app.use(bodyParser.json({ limit: '1mb' }))
 app.use(bodyParser.urlencoded({ limit: '1mb', extended: true }))
+app.use(cookieParser())
 
 // db connection
 mongoose.connect(process.env.DB_CONNECT, {

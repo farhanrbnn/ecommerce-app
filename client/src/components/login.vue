@@ -34,6 +34,8 @@ export default {
 
       DataService.create('/user/auth', data)
         .then((res) => {
+          this.$cookies.set('jwt', res.data.token, "1h")
+    
           if (res.data.status === '404') {
             this.$notify({
               group: 'auth',
