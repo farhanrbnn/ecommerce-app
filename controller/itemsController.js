@@ -42,6 +42,7 @@ const get_all_items = async (req, res) => {
 		let getData = await Post.find()
 
 		if (getData) {
+			console.log(req)
 			return statusController.success200(res, getData)
 
 		} else {
