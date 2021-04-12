@@ -39,10 +39,13 @@ mongoose.connect(process.env.DB_CONNECT, {
 })
 
 // routing
-app.use('/', getRoute)
-app.use('/', postRoute)
-app.use('/', authRoute)
-app.use('/', testRoute)
+app.get('/api/v1', (req,res)=>{
+	return res.status(200).send("OK")
+})
+app.use('/api/v1', getRoute)
+app.use('/api/v1', postRoute)
+app.use('/api/v1', authRoute)
+app.use('/api/v1', testRoute)
 
 // serving at port 5000
 app.listen(5000, ()=>{
