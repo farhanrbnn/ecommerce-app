@@ -40,9 +40,9 @@ mongoose.connect(process.env.DB_CONNECT, {
 
 // routing
 app.use('/', getRoute)
-app.use('/post', postRoute)
-app.use('/user', authRoute)
-app.use('/test', testRoute)
+app.use('/', postRoute)
+app.use('/', authRoute)
+app.use('/', testRoute)
 
 // serving at port 5000
 app.listen(5000, ()=>{

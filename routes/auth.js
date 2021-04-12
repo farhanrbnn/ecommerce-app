@@ -7,6 +7,6 @@ const authController = require('../controller/authController')
 
 router.use(cookieParser())
 
-router.post('/auth', authController.login)
+router.post('/user/auth', authController.login)
 
 module.exports = router

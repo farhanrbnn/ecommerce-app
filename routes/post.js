@@ -12,9 +12,9 @@ const itemsController = require('../controller/itemsController')
 router.use(bodyParser.json({ limit: '1mb' }))
 router.use(bodyParser.urlencoded({ limit: '1mb', extended: true }))
 
-router.post('/', itemsController.input_items)
-router.post('/items', itemsController.category)
+router.post('/items/store', itemsController.input_items)
+router.post('/items/category', itemsController.category)
 
 // USER REGISTER POST REQUEST
-router.post('/register', userController.register)
+router.post('/user/register', userController.register)
 module.exports = router

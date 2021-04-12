@@ -16,7 +16,9 @@ const login = async (req, res) =>{
 	let user = await User.findOne({email:req.body.email})
 
 	if (!user) {
-		return statusController.notFound404(res)
+		return res.status(404).send({
+			'message':'Not Found'
+		})
 	}
 
 	try {
@@ -34,7 +36,9 @@ const login = async (req, res) =>{
 			
 		}
 	} catch (err) {
-		return statusController.badRequest400(res, err)
+		return res.status(400).send({
+			'message':'error'
+		})
 	}
 }
 
