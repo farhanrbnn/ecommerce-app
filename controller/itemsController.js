@@ -96,9 +96,39 @@ const get_item_by_id = async (req, res) => {
 	}
 }
 
+const related_product = async (req, res) => {
+	try {
+		const getData = await Post.findById(req.params.id, {_id:0})
+		const getCategory = await Post.find({category: getData.category})
+		
+		const arr = []
+		for(let i = 0; i < getCategory.length; i++) {
+			if(getData.name != getCategory[i].name){
+				arr.push(getCategory[i])
+			}
+		}
+
+		if (arr) {
+			return res.status(200).send({
+				'message':'success',
+				'data':arr
+			})
+		} else {
+			return res.status(404).send({
+				'message':'Not Found'
+			})
+		}
+	} catch (err) {
+		return res.status(500).send({
+			'message':err
+		})
+	}
+}
+
 module.exports = {
 	input_items,
 	category,
 	get_all_items,
-	get_item_by_id
+	get_item_by_id,
+	related_product
 }
