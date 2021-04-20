@@ -108,7 +108,7 @@ const related_product = async (req, res) => {
 			}
 		}
 
-		if (arr) {
+		if (arr.length >= 1) {
 			return res.status(200).send({
 				'message':'success',
 				'data':arr
