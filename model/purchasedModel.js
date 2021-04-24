@@ -1,18 +1,17 @@
 const mongoose = require('mongoose')
 
 const purchasedSchema = mongoose.Schema({
-	purchasedItem:{
-		type: String,
-		required: true
+	user:{
+		type: mongoose.Schema.Types.ObjectId,
+		ref:'User'
 	},
-	price: {
-		type: Number,
-		required: true
-	},
-	purchasedAt: {
-		type: Date,
-		default: Date.now
+	item:[{
+		type:mongoose.Schema.Types.ObjectId, 
+		ref:'Goods'
+	}],
+	total: {
+		type: Number
 	}
 })
 
-module.exports = mongoose.model('purhcased')
+module.exports = mongoose.model('purhcased', purchasedSchema)

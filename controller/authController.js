@@ -13,12 +13,10 @@ const createToken = (id) => {
 }
 
 const login = async (req, res) =>{
-	let user = await User.findOne({email:req.body.email})
+	let user = await User.findOne({userName:req.body.userName})
 
 	if (!user) {
-		return res.status(404).send({
-			'message':'Not Found'
-		})
+		return statusController.notFound404(res)
 	}
 
 	try {
@@ -29,11 +27,9 @@ const login = async (req, res) =>{
 			
 		} else {
 			const token = createToken(user._id)
-			return res.json({
-				'status':'200',
-				'token': token
+			return res.status(200).send({
+				'token':token
 			})
-			
 		}
 	} catch (err) {
 		return res.status(400).send({

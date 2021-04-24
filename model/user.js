@@ -1,14 +1,30 @@
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
-	firstName: {
+	name: {
 		type: String,
 		required: true
 	},
-	lastName: {
+	userName: {
 		type: String,
 		required: true
 	},
+	address: {
+		type: String,
+		required: true
+	},
+	provinsi: {
+		type:String,
+		requiredL:true
+	},
+	kecamatan:{
+		type: String,
+		required: true
+	},
+	kelurahan: {
+		type: String,
+		required: true 
+	}
 	email: {
 		type: String,
 		required: true
@@ -16,10 +32,7 @@ const userSchema = mongoose.Schema({
 	password: {
 		type: String,
 		required: true
-	},
-	purchased: [{
-		type: mongoose.Schema.Types.ObjectId, ref:"purchased"
-	}]
+	}
 })
 
 module.exports = mongoose.model('User', userSchema)

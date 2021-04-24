@@ -1,4 +1,6 @@
 const Post = require('../model/goods')
+const Purchased = require('../model/purchasedModel')
+const User = require('../model/user')
 const statusController = require('../controller/statusController')
 
 const input_items = async (req,res) => {
@@ -125,10 +127,42 @@ const related_product = async (req, res) => {
 	}
 }
 
+const purchased_item = async (req, res) => {
+	const purchased = new Purchased({
+		total:req.body.total,		
+	})
+
+	try {
+		
+	const test = await purchased.save()
+	console.log(test)
+
+
+		// const getUserName = await User.findOne({userName:req.body.userName})
+		// const getItem = await Post.findOne({name:req.body.name})
+
+		// if(getUserName){
+		// 	return res.status(200).send({
+		// 		'data':getUserName
+		// 	})
+		// }else{
+		// 	return res.status(404).send({
+		// 		'message':'Not Found'
+		// 	})
+		// }	
+	} catch(err){
+		return res.status(500).send({
+			'message':err
+		})
+	}
+	
+}
+
 module.exports = {
 	input_items,
 	category,
 	get_all_items,
 	get_item_by_id,
-	related_product
+	related_product,
+	purchased_item
 }

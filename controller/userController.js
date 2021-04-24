@@ -4,10 +4,10 @@ const statusController = require('../controller/statusController')
 
 const register = async (req, res) => {
 	let user = new User({
-		firstName: req.body.firstName,
-		lastName: req.body.lastName,
+		name: req.body.name,
+		userName: req.body.userName,
 		email: req.body.email,
-		password: req.body.password
+		password: req.body.password,
 	})
 
 	let validatePass = {
