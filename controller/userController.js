@@ -15,16 +15,26 @@ const register = async (req, res) => {
 	}
 
 	try {
-		let validate = await User.findOne({email:req.body.email})
+		let validateUserName = await User.findOne({userName:req.body.userName})
+		let validateEmail = await User.findOne({email:req.body.email})
 
-		if (validate) {
-			return res.status(400).send({
-				'message':'user already exist'
+		if (validateUserName) {
+			return res.send({
+				'status':'400',
+				'message':'user name already exist'
 			})
 		} 
 
+		if(validateEmail) {
+			return res.send({
+				'status':'400',
+				'message':'email already exist'
+			})
+		}
+
 		if (validatePass.confirm != user.password){
-			return res.status(400).send({
+			return res.send({
+				'status':'400',
 				'message':"password doesn't match"
 			})
 

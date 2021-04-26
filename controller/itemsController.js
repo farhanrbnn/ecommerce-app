@@ -128,28 +128,37 @@ const related_product = async (req, res) => {
 }
 
 const purchased_item = async (req, res) => {
-	const purchased = new Purchased({
-		total:req.body.total,		
-	})
-
 	try {
-		
-	const test = await purchased.save()
-	console.log(test)
+		const data = {
+			user:req.body.user,
+			address:req.body.address,
+			item:req.body.item,
+			provinsi:req.body.provinsi,
+			kota:req.body.kota,
+			kecamatan:req.body.kecamatan,
+			total:req.body.total,
+			purchasedAt:Date.now()
+		}
 
+		const purchasedData = new Purchased({
+			user:req.body.user,
+			item:req.body.item,
+			total:req.body.total,
+			purchasedAt:Date.now()
+		})
 
-		// const getUserName = await User.findOne({userName:req.body.userName})
-		// const getItem = await Post.findOne({name:req.body.name})
+		const savePurchased = await purchasedData.save()
 
-		// if(getUserName){
-		// 	return res.status(200).send({
-		// 		'data':getUserName
-		// 	})
-		// }else{
-		// 	return res.status(404).send({
-		// 		'message':'Not Found'
-		// 	})
-		// }	
+		if(savePurchased){
+			return res.send({
+				'message':'success',
+				'data':data
+			})
+		}else{
+			return res.send({
+				'message':'Failed to save data'
+			})
+		}
 	} catch(err){
 		return res.status(500).send({
 			'message':err

@@ -10,7 +10,10 @@ const purchasedSchema = mongoose.Schema({
 		ref:'Goods'
 	}],
 	total: {
-		type: Number
+		type: String
+	},
+	purchasedAt: {
+		type:Number
 	}
 })
 

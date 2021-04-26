@@ -10,21 +10,17 @@ const userSchema = mongoose.Schema({
 		required: true
 	},
 	address: {
-		type: String,
-		required: true
+		type: String
 	},
 	provinsi: {
-		type:String,
-		requiredL:true
+		type:String
 	},
 	kecamatan:{
-		type: String,
-		required: true
+		type: String
 	},
 	kelurahan: {
-		type: String,
-		required: true 
-	}
+		type: String
+	},
 	email: {
 		type: String,
 		required: true

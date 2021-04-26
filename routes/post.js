@@ -15,6 +15,9 @@ router.use(bodyParser.urlencoded({ limit: '1mb', extended: true }))
 router.post('/items/store', itemsController.input_items)
 router.post('/items/category', itemsController.category)
 
+
 // USER REGISTER POST REQUEST
 router.post('/user/register', userController.register)
+router.post('/user/purchased', itemsController.purchased_item)
+
 module.exports = router
