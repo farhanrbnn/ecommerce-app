@@ -115,10 +115,6 @@ const related_product = async (req, res) => {
 				'message':'success',
 				'data':arr
 			})
-		} else {
-			return res.status(404).send({
-				'message':'Not Found'
-			})
 		}
 	} catch (err) {
 		return res.status(500).send({
@@ -129,17 +125,6 @@ const related_product = async (req, res) => {
 
 const purchased_item = async (req, res) => {
 	try {
-		const data = {
-			user:req.body.user,
-			address:req.body.address,
-			item:req.body.item,
-			provinsi:req.body.provinsi,
-			kota:req.body.kota,
-			kecamatan:req.body.kecamatan,
-			total:req.body.total,
-			purchasedAt:Date.now()
-		}
-
 		const purchasedData = new Purchased({
 			user:req.body.user,
 			item:req.body.item,
@@ -148,21 +133,43 @@ const purchased_item = async (req, res) => {
 		})
 
 		const savePurchased = await purchasedData.save()
+		const refPurcashed = await User.findByIdAndUpdate(req.body.user,{order:savePurchased.id})
 
-		if(savePurchased){
+
+		if(savePurchased && refPurcashed){
 			return res.send({
-				'message':'success',
-				'data':data
+				'status':'200'
 			})
+			
 		}else{
 			return res.send({
-				'message':'Failed to save data'
+				'status':'400'
 			})
 		}
 	} catch(err){
-		return res.status(500).send({
-			'message':err
+		return res.send({
+				'status':'500'
+			})
+	}
+	
+}
+
+const order_history = async(req, res) => {
+	try {
+		await User.findOne({_id:req.params.id})
+		.populate({
+			path:'order',
+			populate: {
+				path:'item'
+			}
 		})
+		.exec((err, data) => {
+			res.send({
+				'data':data
+			})
+		})
+	} catch(err) {
+		console.log(err)
 	}
 	
 }
@@ -173,5 +180,6 @@ module.exports = {
 	get_all_items,
 	get_item_by_id,
 	related_product,
-	purchased_item
+	purchased_item,
+	order_history
 }

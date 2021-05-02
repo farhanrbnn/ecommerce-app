@@ -28,6 +28,10 @@ const userSchema = mongoose.Schema({
 	password: {
 		type: String,
 		required: true
+	},
+	order: {
+		type:mongoose.Schema.Types.ObjectId,
+		ref:'Purhcased'
 	}
 })
 

@@ -9,7 +9,7 @@ const register = async (req, res) => {
 		email: req.body.email,
 		password: req.body.password,
 	})
-
+	
 	let validatePass = {
 		confirm: req.body.confirmPassword
 	}

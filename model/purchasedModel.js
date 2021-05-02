@@ -1,13 +1,9 @@
 const mongoose = require('mongoose')
 
 const purchasedSchema = mongoose.Schema({
-	user:{
-		type: mongoose.Schema.Types.ObjectId,
-		ref:'User'
-	},
 	item:[{
 		type:mongoose.Schema.Types.ObjectId, 
-		ref:'Goods'
+		ref:'Post'
 	}],
 	total: {
 		type: String
@@ -17,4 +13,4 @@ const purchasedSchema = mongoose.Schema({
 	}
 })
 
-module.exports = mongoose.model('purhcased', purchasedSchema)
+module.exports = mongoose.model('Purhcased', purchasedSchema)
