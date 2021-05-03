@@ -132,9 +132,21 @@ const purchased_item = async (req, res) => {
 			purchasedAt:Date.now()
 		})
 
-		const savePurchased = await purchasedData.save()
-		const refPurcashed = await User.findByIdAndUpdate(req.body.user,{order:savePurchased.id})
 
+		const savePurchased = await purchasedData.save()
+		const refPurcashed = await User.findByIdAndUpdate(req.body.user,{"$push":{order:savePurchased.id}})
+		// await User.findById(req.body.user)
+		// .then((val) => {
+		// 	const orderId = val.order
+		// 	orderId.push(savePurchased.id)
+
+		// 	const updateUser = new User({
+		// 		order: orderId
+		// 	})
+
+		// 	console.log(updateUser)
+			
+		// })
 
 		if(savePurchased && refPurcashed){
 			return res.send({
@@ -142,11 +154,14 @@ const purchased_item = async (req, res) => {
 			})
 			
 		}else{
+			console.log('FAILED')
 			return res.send({
 				'status':'400'
 			})
 		}
 	} catch(err){
+		console.log('CATCH ERR ----------')
+		console.log(err)
 		return res.send({
 				'status':'500'
 			})
@@ -164,12 +179,22 @@ const order_history = async(req, res) => {
 			}
 		})
 		.exec((err, data) => {
-			res.send({
-				'data':data
-			})
+			if(data) {
+				console.log(data)
+				res.send({
+					'data':data.order
+				})	
+			} else {
+				res.send({
+					'data':{}
+				})
+			}
+			
 		})
 	} catch(err) {
-		console.log(err)
+		res.status(500).send({
+			'message':err
+		})
 	}
 	
 }

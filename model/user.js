@@ -29,10 +29,10 @@ const userSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	order: {
+	order: [{
 		type:mongoose.Schema.Types.ObjectId,
 		ref:'Purhcased'
-	}
+	}]
 })
 
 module.exports = mongoose.model('User', userSchema)
