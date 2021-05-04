@@ -19,5 +19,6 @@ router.post('/items/category', itemsController.category)
 // USER REGISTER POST REQUEST
 router.post('/user/register', userController.register)
 router.post('/user/purchased', itemsController.purchased_item)
+router.post('/user/wishlist', itemsController.wishlist)
 
 module.exports = router

@@ -1,5 +1,6 @@
 const Post = require('../model/goods')
 const Purchased = require('../model/purchasedModel')
+const Wishlist = require('../model/wishlistModel')
 const User = require('../model/user')
 const statusController = require('../controller/statusController')
 
@@ -185,6 +186,31 @@ const order_history = async(req, res) => {
 	
 }
 
+const wishlist = async(req, res) => {
+	const itemId = new Wishlist({
+		item:req.body.id
+	})
+
+	try {
+		const Wishlist = await Wishlist.save()
+
+		if(Wishlist){
+			res.json({
+				'data':item
+			})
+		} else {
+			res.json({
+				'data':{}
+			})
+		}
+	} catch(err){
+		res.json({
+			'message':err
+		})
+	}
+
+}
+
 module.exports = {
 	input_items,
 	category,
@@ -192,5 +218,6 @@ module.exports = {
 	get_item_by_id,
 	related_product,
 	purchased_item,
-	order_history
+	order_history,
+	wishlist
 }
