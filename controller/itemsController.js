@@ -135,18 +135,6 @@ const purchased_item = async (req, res) => {
 
 		const savePurchased = await purchasedData.save()
 		const refPurcashed = await User.findByIdAndUpdate(req.body.user,{"$push":{order:savePurchased.id}})
-		// await User.findById(req.body.user)
-		// .then((val) => {
-		// 	const orderId = val.order
-		// 	orderId.push(savePurchased.id)
-
-		// 	const updateUser = new User({
-		// 		order: orderId
-		// 	})
-
-		// 	console.log(updateUser)
-			
-		// })
 
 		if(savePurchased && refPurcashed){
 			return res.send({
@@ -160,8 +148,6 @@ const purchased_item = async (req, res) => {
 			})
 		}
 	} catch(err){
-		console.log('CATCH ERR ----------')
-		console.log(err)
 		return res.send({
 				'status':'500'
 			})
@@ -180,10 +166,10 @@ const order_history = async(req, res) => {
 		})
 		.exec((err, data) => {
 			if(data) {
-				console.log(data)
 				res.send({
-					'data':data.order
+					'data':orderData
 				})	
+
 			} else {
 				res.send({
 					'data':{}

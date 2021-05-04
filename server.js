@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const dotenv = require('dotenv')
 const cors = require('cors')
+const morgan = require('morgan')
 const app  = express()
 
 dotenv.config()
@@ -25,6 +26,7 @@ app.use(cors(corsOption))
 app.use(bodyParser.json({ limit: '1mb' }))
 app.use(bodyParser.urlencoded({ limit: '1mb', extended: true }))
 app.use(cookieParser())
+app.use(morgan('dev'))
 
 // db connection
 mongoose.connect(process.env.DB_CONNECT, {
