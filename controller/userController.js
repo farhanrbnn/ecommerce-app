@@ -54,6 +54,29 @@ const register = async (req, res) => {
 	}
 }
 
+const get_user = async(req,res) => {
+	try {
+		const getUser = await User.findById(req.params.id)
+
+		if(getUser){
+			res.json({
+				'status':'200',
+				'data':getUser
+			})
+		} else {
+			res.json({
+				'status':'404',
+				'data':{}
+			})
+		}
+	}  catch (err) {
+		res.json({
+			'message':err
+		})
+	}
+}
+
 module.exports = {
-	register
+	register,
+	get_user
 }
