@@ -168,7 +168,7 @@ const order_history = async(req, res) => {
 		.exec((err, data) => {
 			if(data) {
 				res.send({
-					'data':orderData
+					'data':data.order
 				})	
 
 			} else {
