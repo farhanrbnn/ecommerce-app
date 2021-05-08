@@ -12,6 +12,7 @@ router.get('/items/category', itemsController.category)
 router.get('/items/related/:id', itemsController.related_product)
 router.get('/user/order-history/:id', itemsController.order_history)
 router.get('/user/list/:id', userController.get_user)
+router.get('/user/address/:id', userController.get_user_address)
 
 
 module.exports = router

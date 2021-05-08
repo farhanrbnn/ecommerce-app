@@ -76,7 +76,30 @@ const get_user = async(req,res) => {
 	}
 }
 
+const get_user_address = async (req, res) => {
+	const userId = req.params.id
+
+	try {
+		await User.findById(userId)
+		.populate('address')
+		.exec((err, data) => {
+			res.json({
+				'status':'200',
+				'data':data.address
+			})
+		})
+	} catch(err) {
+		res.json({
+			'status':'500',
+			'data':{}
+		})
+	}
+}
+
+
+
 module.exports = {
 	register,
-	get_user
+	get_user,
+	get_user_address
 }
