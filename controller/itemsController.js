@@ -1,6 +1,7 @@
 const Post = require('../model/goods')
 const Purchased = require('../model/purchasedModel')
 const Wishlist = require('../model/wishlistModel')
+const Address = require('../model/addressModel')
 const User = require('../model/user')
 const statusController = require('../controller/statusController')
 
@@ -133,7 +134,6 @@ const purchased_item = async (req, res) => {
 			purchasedAt:Date.now()
 		})
 
-
 		const savePurchased = await purchasedData.save()
 		const refPurcashed = await User.findByIdAndUpdate(req.body.user,{"$push":{order:savePurchased.id}})
 
@@ -186,17 +186,18 @@ const order_history = async(req, res) => {
 	
 }
 
-const wishlist = async(req, res) => {
-	const itemId = new Wishlist({
-		item:req.body.id
+const add_wishlist = async(req, res) => {
+	const wishlist = new Wishlist({
+		item:req.body.item
 	})
 
 	try {
-		const Wishlist = await Wishlist.save()
+		const saveWishlist = await wishlist.save()
+		const refWishlist = await await User.findByIdAndUpdate(req.body.user,{"$push":{wishlist:saveWishlist.id}})
 
-		if(Wishlist){
+		if(saveWishlist && refWishlist){
 			res.json({
-				'data':item
+				'data':saveWishlist
 			})
 		} else {
 			res.json({
@@ -219,5 +220,5 @@ module.exports = {
 	related_product,
 	purchased_item,
 	order_history,
-	wishlist
+	add_wishlist
 }

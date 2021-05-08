@@ -1,13 +1,16 @@
-const mongoose = require('mongooese')
+const mongoose = require('mongoose')
 
 const addressSchema = mongoose.Schema({
 	address:{
 		type: String
 	},
+	provinsi:{
+		type: String
+	},
 	kecamatan: {
 		type: String
 	},
-	kelurahan:{
+	kota:{
 		type: String
 	},
 	kodePos: {

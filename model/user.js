@@ -9,22 +9,6 @@ const userSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	address: {
-		type: String
-	},
-	provinsi: {
-		type:String
-	},
-	kecamatan:{
-		type: String
-	},
-	kelurahan: {
-		type: String
-	},
-	email: {
-		type: String,
-		required: true
-	},
 	password: {
 		type: String,
 		required: true
@@ -36,6 +20,10 @@ const userSchema = mongoose.Schema({
 	wishlist:[{
 		type:mongoose.Schema.Types.ObjectId,
 		ref:'Wishlist'
+	}],
+	address:[{
+		type:mongoose.Schema.Types.ObjectId,
+		ref:'Address'
 	}]
 })
 
