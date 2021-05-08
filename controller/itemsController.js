@@ -212,6 +212,32 @@ const add_wishlist = async(req, res) => {
 
 }
 
+const add_address = async(req,res) => {
+	const address = new Address({
+		address:req.body.address,
+		provinsi:req.body.provinsi,
+		kecamatan:req.body.kecamatan,
+		kota:req.body.kota,
+		kodePos:req.body.kodePos
+	})
+
+	try {
+		const saveAddress = await address.save()
+		const refAddress = await User.findByIdAndUpdate(req.body.user,{"$push":{address:saveAddress.id}})
+
+		if(saveAddress && refAddress){
+			res.json({
+				'message':'200',
+			})
+		}
+	} catch(err){
+		res.json({
+			'message':err
+		})
+	}
+}
+
+
 module.exports = {
 	input_items,
 	category,
@@ -220,5 +246,6 @@ module.exports = {
 	related_product,
 	purchased_item,
 	order_history,
-	add_wishlist
+	add_wishlist,
+	add_address
 }
