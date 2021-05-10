@@ -10,10 +10,7 @@ const app  = express()
 
 dotenv.config()
 
-// define vue app url 
-let corsOption = {
-	origin: 'http://localhost:8080'
-}
+const port = process.env.PORT || 5000
 
 // import module
 const getRoute = require('./routes/get')
@@ -22,7 +19,7 @@ const authRoute = require('./routes/auth')
 const testRoute = require('./routes/testPrivateRoute')
 
 // middleware
-app.use(cors(corsOption))
+app.use(cors())
 app.use(bodyParser.json({ limit: '1mb' }))
 app.use(bodyParser.urlencoded({ limit: '1mb', extended: true }))
 app.use(cookieParser())
@@ -50,6 +47,6 @@ app.use('/api/v1', authRoute)
 app.use('/api/v1', testRoute)
 
 // serving at port 5000
-app.listen(5000, ()=>{
-	console.log('server listening')
+app.listen(port, ()=>{
+	console.log('server listening', port)
 })
