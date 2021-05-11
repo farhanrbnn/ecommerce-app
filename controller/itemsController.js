@@ -212,6 +212,36 @@ const add_wishlist = async(req, res) => {
 
 }
 
+const get_wishlist = async (req, res) => {
+	const userId = req.params.id
+
+	try {
+		await User.findById(userId)
+		.populate({
+			path:'wishlist',
+			populate: {
+				path:'item'
+			}
+		})
+		.exec((err, data) => {
+			if(data.wishlist){
+				res.json({
+					'data':data.wishlist
+				})
+			}else{
+				res.json({
+					'data':{}
+				})
+			}
+			
+		})
+	}catch(err){
+		res.status(500).json({
+			'message':err
+		})
+	}
+}
+
 const add_address = async(req,res) => {
 	const address = new Address({
 		address:req.body.address,
@@ -237,6 +267,21 @@ const add_address = async(req,res) => {
 	}
 }
 
+const update_stock = async (req, res) => {
+	const id = req.body.id
+
+	try {
+		const getData = await Post.find({ _id:{$in: id}})
+
+		res.json({
+			getData
+		})
+
+	} catch (err) {
+		console.log(err)
+	}
+}
+
 
 module.exports = {
 	input_items,
@@ -247,5 +292,7 @@ module.exports = {
 	purchased_item,
 	order_history,
 	add_wishlist,
-	add_address
+	get_wishlist,
+	add_address,
+	update_stock
 }

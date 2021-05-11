@@ -6,6 +6,7 @@ const register = async (req, res) => {
 	let user = new User({
 		name: req.body.name,
 		userName: req.body.userName,
+		gender: req.body.gender,
 		email: req.body.email,
 		password: req.body.password,
 	})
