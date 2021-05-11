@@ -127,11 +127,14 @@ const related_product = async (req, res) => {
 
 const purchased_item = async (req, res) => {
 	try {
+		const dateNow = new Date()
+    	const purchaseDate = dateNow.getDate() + '/' + (dateNow.getMonth() + 1) + '/' + dateNow.getFullYear()
+
 		const purchasedData = new Purchased({
 			user:req.body.user,
 			item:req.body.item,
 			total:req.body.total,
-			purchasedAt:Date.now()
+			purchasedAt:purchaseDate
 		})
 
 		const savePurchased = await purchasedData.save()
@@ -224,9 +227,9 @@ const get_wishlist = async (req, res) => {
 			}
 		})
 		.exec((err, data) => {
-			if(data.wishlist){
+			if(data){
 				res.json({
-					'data':data.wishlist
+					'data':data
 				})
 			}else{
 				res.json({

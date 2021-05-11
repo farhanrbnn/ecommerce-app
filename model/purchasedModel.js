@@ -9,7 +9,7 @@ const purchasedSchema = mongoose.Schema({
 		type: String
 	},
 	purchasedAt: {
-		type:Number
+		type:String
 	}
 })
 
