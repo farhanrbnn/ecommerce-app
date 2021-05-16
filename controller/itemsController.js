@@ -146,7 +146,6 @@ const purchased_item = async (req, res) => {
 			})
 			
 		}else{
-			console.log('FAILED')
 			return res.send({
 				'status':'400'
 			})
@@ -196,7 +195,7 @@ const add_wishlist = async(req, res) => {
 
 	try {
 		const saveWishlist = await wishlist.save()
-		const refWishlist = await await User.findByIdAndUpdate(req.body.user,{"$push":{wishlist:saveWishlist.id}})
+		const refWishlist =  await User.findByIdAndUpdate(req.body.user,{"$push":{wishlist:saveWishlist.id}})
 
 		if(saveWishlist && refWishlist){
 			res.json({
@@ -229,7 +228,7 @@ const get_wishlist = async (req, res) => {
 		.exec((err, data) => {
 			if(data){
 				res.json({
-					'data':data
+					'data':data.wishlist
 				})
 			}else{
 				res.json({
@@ -270,15 +269,28 @@ const add_address = async(req,res) => {
 	}
 }
 
+// UNDER TESTING NEW ENDPOINT
 const update_stock = async (req, res) => {
 	const id = req.body.id
+	const qty = [100,200]
+	console.log(id)
 
 	try {
 		const getData = await Post.find({ _id:{$in: id}})
-
-		res.json({
-			getData
-		})
+		const newQty = []
+		if(getData){
+			for(var i = 0; i < getData.length; i++){
+				const new = getData[i].quantity - qty[i]
+				newQty.push(new)
+			}
+			res.json({
+				newQty
+			})
+		} else {
+			res.json({
+				'data':{}
+			})
+		}
 
 	} catch (err) {
 		console.log(err)

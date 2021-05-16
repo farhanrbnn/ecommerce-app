@@ -21,5 +21,6 @@ router.post('/user/register', userController.register)
 router.post('/user/purchased', itemsController.purchased_item)
 router.post('/user/wishlist', itemsController.add_wishlist)
 router.post('/user/address', itemsController.add_address)
+router.post('/items/update', itemsController.update_stock)
 
 module.exports = router

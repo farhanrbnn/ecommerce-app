@@ -28,7 +28,8 @@ app.use(morgan('dev'))
 // db connection
 mongoose.connect(process.env.DB_CONNECT, {
 	useNewUrlParser: true,
-	useUnifiedTopology: true
+	useUnifiedTopology: true,
+	useFindAndModify: false 
 })
 .then(() => {
 	console.log('dbconnected',)
