@@ -271,20 +271,24 @@ const add_address = async(req,res) => {
 
 // UNDER TESTING NEW ENDPOINT
 const update_stock = async (req, res) => {
-	const id = req.body.id
-	const qty = [100,200]
-	console.log(id)
+	const orderId = req.body.id
+	const qty = req.body.qty
 
 	try {
-		const getData = await Post.find({ _id:{$in: id}})
-		const newQty = []
+		const getData = await Post.find({ _id:{$in: orderId}})
+
 		if(getData){
 			for(var i = 0; i < getData.length; i++){
-				const new = getData[i].quantity - qty[i]
-				newQty.push(new)
+				const newQty = getData[i].quantity - qty[i]
+				getData[i].quantity = newQty
+				
+				await Post.update(
+					{ _id:{$in: orderId[i]}},
+					{$set:{quantity:getData[i].quantity}})
 			}
+
 			res.json({
-				newQty
+				getData
 			})
 		} else {
 			res.json({
