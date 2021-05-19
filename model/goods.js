@@ -20,6 +20,10 @@ const goodsSchema = mongoose.Schema({
 	picture: {
 		type: String,
 		required: true
+	},
+	description: {
+		type: String,
+		required: true
 	}
 })
 
