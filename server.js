@@ -16,7 +16,6 @@ const port = process.env.PORT || 5000
 const getRoute = require('./routes/get')
 const postRoute = require('./routes/post')
 const authRoute = require('./routes/auth')
-const testRoute = require('./routes/testPrivateRoute')
 
 // middleware
 app.use(cors())
@@ -45,7 +44,13 @@ app.get('/api/v1', (req,res)=>{
 app.use('/api/v1', getRoute)
 app.use('/api/v1', postRoute)
 app.use('/api/v1', authRoute)
-app.use('/api/v1', testRoute)
+
+app.get('*', function(req, res){
+	res.status(404).json({
+		'status':404,
+		'message': 'Not Found'
+	});
+  });
 
 // serving at port 5000
 app.listen(port, ()=>{
