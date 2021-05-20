@@ -17,6 +17,10 @@ const userSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
+	email: {
+		type: String,
+		requred: true
+	},
 	order: [{
 		type:mongoose.Schema.Types.ObjectId,
 		ref:'Purhcased'
