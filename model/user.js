@@ -21,6 +21,10 @@ const userSchema = mongoose.Schema({
 		type: String,
 		requred: true
 	},
+	cart: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref:'Cart'
+	},
 	order: [{
 		type:mongoose.Schema.Types.ObjectId,
 		ref:'Purhcased'

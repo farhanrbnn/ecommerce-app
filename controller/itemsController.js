@@ -3,7 +3,6 @@ const Purchased = require('../model/purchasedModel')
 const Wishlist = require('../model/wishlistModel')
 const Address = require('../model/addressModel')
 const User = require('../model/user')
-const statusController = require('../controller/statusController')
 
 const input_items = async (req,res) => {
 	let post = new Post({
@@ -11,7 +10,8 @@ const input_items = async (req,res) => {
 		category: req.body.category,
 		price: req.body.price,
 		quantity: req.body.quantity,
-		picture: req.body.picture
+		picture: req.body.picture,
+		description: req.body.description
 	})
 
 	try {

@@ -14,6 +14,7 @@ const createToken = (id) => {
 
 const login = async (req, res) =>{
 	let user = await User.findOne({userName:req.body.userName})
+	console.log(req.body)
 
 	if (!user) {
 		return statusController.notFound404(res)

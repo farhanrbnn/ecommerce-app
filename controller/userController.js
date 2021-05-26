@@ -1,6 +1,37 @@
 const User = require('../model/user')
 const bcrypt = require('bcrypt')
-const statusController = require('../controller/statusController')
+const Joi = require('@hapi/joi')
+
+// const validateRegister = async (data) => {
+// 	const schema = Joi.object({
+// 		name: Joi.string().required(),
+// 		userName: Joi.string().required(),
+// 		gender: Joi.string().required(),
+// 		email: Joi.string().required(),
+// 		password: Joi.string().required()
+// 	})
+
+// 	try {
+// 		const result = await schema.validate(data)
+
+// 		if(result.error == null){
+// 			return {
+// 				isvalid: true
+// 			}
+// 		} else {
+// 			return {
+// 				isValid: false,
+// 				message: result.error.toString()
+// 			}
+// 		}
+// 	} catch (err) {
+// 		return {
+// 			isValid: false,
+// 			message: err.details[0].message
+// 		}
+// 	}
+
+// }
 
 const register = async (req, res) => {
 	let user = new User({
@@ -11,6 +42,15 @@ const register = async (req, res) => {
 		password: req.body.password,
 	})
 	
+	// const validate = await validateRegister(user)
+	
+	// if(!validate.isValid){
+	// 	return res.send({
+	// 		'status':'400',
+	// 		'message': validate.message
+	// 	})
+	// }
+
 	let validatePass = {
 		confirm: req.body.confirmPassword
 	}
