@@ -14,6 +14,8 @@ const input_items = async (req,res) => {
 		description: req.body.description
 	})
 
+	console.log(post)
+
 	try {
 		let savedPost = await post.save()
 
@@ -23,7 +25,7 @@ const input_items = async (req,res) => {
 		})
 
 	} catch (err) {
-		return res.status(400).send({
+		return res.send({
 			'message':err
 		})
 	}
