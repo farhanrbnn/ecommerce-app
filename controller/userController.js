@@ -1,4 +1,5 @@
 const User = require('../model/user')
+const Cart = require('../model/cartModel')
 const bcrypt = require('bcrypt')
 const Joi = require('@hapi/joi')
 
@@ -137,10 +138,70 @@ const get_user_address = async (req, res) => {
 	}
 }
 
+const user_cart = async (req, res) => {
+	const cart = new Cart({
+		item: req.body.itemid,
+		quantity: req.body.quantity,
+		subtotal: req.body.subtotal
+	})
+
+	const user = req.body.user
+
+	try {
+		const saveCart = await cart.save()
+		const refCart = await User.findByIdAndUpdate(user, {"$push":{cart:saveCart.id}})
+
+		if(saveCart && refCart) {
+			return res.json({
+				'status':200,
+				'message':true
+			})
+		}
+	} catch (err) {
+		return res.send({
+			'message':err
+		})
+	}
+}
+
+const get_cart = async (req, res) => {
+	const userId = req.params.id
+
+	try {
+		await User.findById(userId)
+		.populate({
+			path: 'cart',
+			populate: {
+				path:'item'
+			}
+		})
+		.exec((err, data) => {
+			if(data) {
+				return res.json({
+					'data':data.cart
+				})
+			} else {
+				return res.json({
+					data:{}
+				})
+			}
+		})
+	} catch(err) {
+		return res.json({
+			'message':err
+		})
+	}
+
+	
+
+}
+
 
 
 module.exports = {
 	register,
 	get_user,
-	get_user_address
+	get_user_address,
+	user_cart,
+	get_cart
 }

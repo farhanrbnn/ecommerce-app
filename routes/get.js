@@ -15,6 +15,7 @@ router.get('/user/list/:id', userController.get_user)
 router.get('/user/address/:id', userController.get_user_address)
 router.get('/test', itemsController.update_stock)
 router.get('/user/wishlist/:id', itemsController.get_wishlist)
+router.get('/user/cart/:id', userController.get_cart)
 
 
 module.exports = router

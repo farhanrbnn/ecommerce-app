@@ -1,4 +1,4 @@
-const mongooose = require('mongoose')
+const mongoose = require('mongoose')
 
 const cartSchema = mongoose.Schema({
     item: {
@@ -9,7 +9,7 @@ const cartSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    subTotal: {
+    subtotal: {
         type: Number,
         required: true
     }
