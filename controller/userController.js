@@ -191,17 +191,30 @@ const get_cart = async (req, res) => {
 			'message':err
 		})
 	}
-
-	
-
 }
 
+const delete_cart = async (req, res) => {
+	const cartId = req.params.id
 
+	try {
+		await User.findOneAndDelete({cart:cartId})
+		.then(() => {
+			return res.json({
+				'message':true
+			})
+		})
+	} catch(err) {
+		return res.json({
+			'message': err
+		})
+	}
+}
 
 module.exports = {
 	register,
 	get_user,
 	get_user_address,
 	user_cart,
-	get_cart
+	get_cart,
+	delete_cart
 }

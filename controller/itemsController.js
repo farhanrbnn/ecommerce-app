@@ -16,7 +16,6 @@ const input_items = async (req,res) => {
 
 	try {
 		let savedPost = await post.save()
-
 		return res.status(200).send({
 			'message':'success',
 			'data': savedPost

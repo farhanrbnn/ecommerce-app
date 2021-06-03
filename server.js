@@ -7,6 +7,16 @@ const dotenv = require('dotenv')
 const cors = require('cors')
 const morgan = require('morgan')
 const app  = express()
+const http = require('http').Server(app)
+const io = require('socket.io')(http,
+	{
+		cors: {
+		  origin: "http://localhost:8080",
+		  methods: ["GET", "POST"]
+		}
+	})
+
+global.io = io
 
 dotenv.config()
 
@@ -16,6 +26,7 @@ const port = process.env.PORT || 5000
 const getRoute = require('./routes/get')
 const postRoute = require('./routes/post')
 const authRoute = require('./routes/auth')
+const deleteRoute = require('./routes/delete')
 
 // middleware
 app.use(cors())
@@ -44,6 +55,7 @@ app.get('/api/v1', (req,res)=>{
 app.use('/api/v1', getRoute)
 app.use('/api/v1', postRoute)
 app.use('/api/v1', authRoute)
+app.use('/api/v1', deleteRoute)
 
 app.get('*', function(req, res){
 	res.status(404).json({
@@ -53,6 +65,6 @@ app.get('*', function(req, res){
   });
 
 // serving at port 5000
-app.listen(port, ()=>{
+http.listen(port, ()=>{
 	console.log('server listening', port)
 })
