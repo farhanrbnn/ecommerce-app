@@ -7,16 +7,6 @@ const dotenv = require('dotenv')
 const cors = require('cors')
 const morgan = require('morgan')
 const app  = express()
-const http = require('http').Server(app)
-const io = require('socket.io')(http,
-	{
-		cors: {
-		  origin: "http://localhost:8080",
-		  methods: ["GET", "POST"]
-		}
-	})
-
-global.io = io
 
 dotenv.config()
 
@@ -65,6 +55,6 @@ app.get('*', function(req, res){
   });
 
 // serving at port 5000
-http.listen(port, ()=>{
+app.listen(port, ()=>{
 	console.log('server listening', port)
 })
