@@ -178,7 +178,7 @@ const get_cart = async (req, res) => {
 		.exec((err, data) => {
 			if(data) {
 				return res.json({
-					'data':data.cart
+					'data': data.cart
 				})
 			} else {
 				return res.json({
@@ -194,20 +194,29 @@ const get_cart = async (req, res) => {
 }
 
 const delete_cart = async (req, res) => {
-	const cartId = req.params.id
+	const cartId = req.body.cartId
+	const userId = req.body.id
 
 	try {
-		await User.findOneAndDelete({cart:cartId})
-		.then(() => {
-			return res.json({
-				'message':true
-			})
+		await User.findByIdAndUpdate(userId, {"$pull":{cart:cartId}})
+		.then((val) => {
+			const deleteCart = Cart.findOneAndDelete(cartId)
+			
+			if (deleteCart){
+				return res.json({
+					'message':true
+				})
+			}
+
 		})
-	} catch(err) {
+	} catch(err){
 		return res.json({
-			'message': err
+			'message':err
 		})
 	}
+
+
+	
 }
 
 module.exports = {

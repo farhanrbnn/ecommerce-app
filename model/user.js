@@ -31,7 +31,7 @@ const userSchema = mongoose.Schema({
 	}],
 	wishlist:[{
 		type:mongoose.Schema.Types.ObjectId,
-		ref:'Wishlist'
+		ref:'Post'
 	}],
 	address:[{
 		type:mongoose.Schema.Types.ObjectId,

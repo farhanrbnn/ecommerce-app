@@ -188,21 +188,20 @@ const order_history = async(req, res) => {
 }
 
 const add_wishlist = async(req, res) => {
-	const wishlist = new Wishlist({
-		item:req.body.item
-	})
+	const itemId = req.body.item
+	const userId = req.body.user
 
 	try {
-		const saveWishlist = await wishlist.save()
-		const refWishlist =  await User.findByIdAndUpdate(req.body.user,{"$push":{wishlist:saveWishlist.id}})
+		// const saveWishlist = await wishlist.save()
+		const refWishlist =  await User.findByIdAndUpdate(userId,{"$push":{wishlist:itemId}})
 
-		if(saveWishlist && refWishlist){
+		if(refWishlist){
 			res.json({
-				'data':saveWishlist
+				'success': true
 			})
 		} else {
 			res.json({
-				'data':{}
+				'success':false
 			})
 		}
 	} catch(err){

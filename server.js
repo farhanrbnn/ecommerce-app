@@ -16,7 +16,7 @@ const port = process.env.PORT || 5000
 const getRoute = require('./routes/get')
 const postRoute = require('./routes/post')
 const authRoute = require('./routes/auth')
-const deleteRoute = require('./routes/delete')
+
 
 // middleware
 app.use(cors())
@@ -42,10 +42,11 @@ mongoose.connect(process.env.DB_CONNECT, {
 app.get('/api/v1', (req,res)=>{
 	return res.status(200).send("OK")
 })
+
 app.use('/api/v1', getRoute)
 app.use('/api/v1', postRoute)
 app.use('/api/v1', authRoute)
-app.use('/api/v1', deleteRoute)
+
 
 app.get('*', function(req, res){
 	res.status(404).json({
