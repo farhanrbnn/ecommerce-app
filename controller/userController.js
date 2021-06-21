@@ -148,9 +148,7 @@ const user_cart = async (req, res) => {
 	const user = req.body.user
 
 	try {
-		// const saveCart = await cart.save()
 		const refCart = await User.findByIdAndUpdate(user, {"$push":{cart:newCart}})
-
 
 		if(refCart) {
 			return res.json({
