@@ -139,19 +139,20 @@ const get_user_address = async (req, res) => {
 }
 
 const user_cart = async (req, res) => {
-	const cart = new Cart({
+	const newCart = {
 		item: req.body.itemid,
 		quantity: req.body.quantity,
 		subtotal: req.body.subtotal
-	})
+	}
 
 	const user = req.body.user
 
 	try {
-		const saveCart = await cart.save()
-		const refCart = await User.findByIdAndUpdate(user, {"$push":{cart:saveCart.id}})
+		// const saveCart = await cart.save()
+		const refCart = await User.findByIdAndUpdate(user, {"$push":{cart:newCart}})
 
-		if(saveCart && refCart) {
+
+		if(refCart) {
 			return res.json({
 				'status':200,
 				'message':true

@@ -19,11 +19,21 @@ const userSchema = mongoose.Schema({
 	},
 	email: {
 		type: String,
-		requred: true
+		required: true
 	},
 	cart: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref:'Cart'
+		item:{
+			type:mongoose.Schema.Types.ObjectId,
+			ref:'Post'
+		},
+		quantity: {
+			type:Number,
+			required: true
+		},
+		subtotal: {
+			type: Number,
+			required: true
+		}
 	}],
 	order: [{
 		type:mongoose.Schema.Types.ObjectId,
