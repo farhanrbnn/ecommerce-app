@@ -44,8 +44,24 @@ const userSchema = mongoose.Schema({
 		ref:'Post'
 	}],
 	address:[{
-		type:mongoose.Schema.Types.ObjectId,
-		ref:'Address'
+		address: {
+			type: String
+		},
+		provinsi: {
+			type: String
+		},
+		kecamatan: {
+			type: String
+		},
+		kota: {
+			type: String
+		},
+		kodePos:{
+			type: String
+		},
+		isDefault: {
+			type: Boolean
+		}
 	}]
 })
 
