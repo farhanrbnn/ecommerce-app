@@ -197,24 +197,17 @@ const delete_cart = async (req, res) => {
 	const userId = req.body.id
 
 	try {
-		await User.findByIdAndUpdate(userId, {"$pull":{cart:cartId}})
+		await User.findByIdAndUpdate(userId, {"$pull":{cart:{_id:cartId}}})
 		.then((val) => {
-			const deleteCart = Cart.findOneAndDelete(cartId)
-			
-			if (deleteCart){
-				return res.json({
-					'message':true
-				})
-			}
-
+			return res.json({
+				'message':true
+			})
 		})
 	} catch(err){
 		return res.json({
 			'message':err
 		})
 	}
-
-
 	
 }
 
