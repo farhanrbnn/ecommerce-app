@@ -242,22 +242,48 @@ const get_wishlist = async (req, res) => {
 	}
 }
 
+const delete_wishlist = async (req, res) => {
+	const userId = req.body.userId
+	const wishlistId = req.body.cartId
+	console.log(wishlistId)
+
+	try {
+		await User.findByIdAndUpdate(userId, {"$pull":{wishlist:wishlistId}})
+		.then((val) => {
+			console.log(val)
+			return res.json({
+				'message':true
+			})
+		})
+		.catch((err) => {
+			return res.json({
+				'message': false
+			})
+		})
+	} catch(err) {
+		return res.json({
+			'message':err
+		})
+	}
+}
+
 const add_address = async(req,res) => {
-	const address = new Address({
+	const newAddress = {
 		address:req.body.address,
 		provinsi:req.body.provinsi,
 		kecamatan:req.body.kecamatan,
 		kota:req.body.kota,
 		kodePos:req.body.kodePos
-	})
+	}
+
+	const user = req.body.user
 
 	try {
-		const saveAddress = await address.save()
-		const refAddress = await User.findByIdAndUpdate(req.body.user,{"$push":{address:saveAddress.id}})
+		const refAddress = await User.findByIdAndUpdate(user,{"$push":{address:newAddress}})
 
-		if(saveAddress && refAddress){
+		if(refAddress){
 			res.json({
-				'message':'200',
+				'message':true,
 			})
 		}
 	} catch(err){
@@ -270,7 +296,6 @@ const add_address = async(req,res) => {
 const update_stock = async (req, res) => {
 	const orderId = req.body.item
 	const qty = req.body.quantity
-	console.log(orderId, qty)
 
 	try {
 		const getData = await Post.find({ _id:{$in: orderId}})
@@ -311,5 +336,6 @@ module.exports = {
 	add_wishlist,
 	get_wishlist,
 	add_address,
-	update_stock
+	update_stock,
+	delete_wishlist
 }

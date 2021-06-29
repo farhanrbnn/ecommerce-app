@@ -58,9 +58,6 @@ const userSchema = mongoose.Schema({
 		},
 		kodePos:{
 			type: String
-		},
-		isDefault: {
-			type: Boolean
 		}
 	}]
 })
