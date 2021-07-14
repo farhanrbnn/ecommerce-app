@@ -245,12 +245,10 @@ const get_wishlist = async (req, res) => {
 const delete_wishlist = async (req, res) => {
 	const userId = req.body.userId
 	const wishlistId = req.body.cartId
-	console.log(wishlistId)
 
 	try {
 		await User.findByIdAndUpdate(userId, {"$pull":{wishlist:wishlistId}})
 		.then((val) => {
-			console.log(val)
 			return res.json({
 				'message':true
 			})

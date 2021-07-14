@@ -192,24 +192,43 @@ const get_cart = async (req, res) => {
 	}
 }
 
-const delete_cart = async (req, res) => {
+const update_cart = async (req, res) => {
 	const cartId = req.body.cartId
 	const userId = req.body.id
+	const deleteAll = req.query.deleteAll
 
 	try {
+		if (deleteAll) {
+			await User.update({_id: userId}, 
+				{"$pull": {cart: {_id: cartId}}}, 
+				{multi: true})
+			.then((val) => {
+				return res.json({
+					'message': true
+				})
+			})
+			.catch((err) => {
+				return res.json({
+					'message': err
+				})
+			})
+		}
+
 		await User.findByIdAndUpdate(userId, {"$pull":{cart:{_id:cartId}}})
 		.then((val) => {
 			return res.json({
 				'message':true
 			})
 		})
+
+		
 	} catch(err){
 		return res.json({
 			'message':err
 		})
 	}
-	
 }
+
 
 module.exports = {
 	register,
@@ -217,5 +236,5 @@ module.exports = {
 	get_user_address,
 	user_cart,
 	get_cart,
-	delete_cart
+	update_cart
 }

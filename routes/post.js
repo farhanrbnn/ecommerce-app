@@ -20,8 +20,9 @@ router.post('/user/wishlist', itemsController.add_wishlist)
 router.post('/user/address', itemsController.add_address)
 router.post('/items/update', itemsController.update_stock)
 router.post('/user/cart', userController.user_cart)
-router.post('/user/cart/delete', userController.delete_cart)
+router.post('/user/cart/update', userController.update_cart)
 router.post('/user/wishlist/delete', itemsController.delete_wishlist)
+
 
 
 module.exports = router
